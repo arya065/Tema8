@@ -2,18 +2,18 @@ package BDUtils;
 
 import java.sql.*;
 
-public class Connection {
+public class Conn {
 
-    private static final String LOCALHOST = "jdbc:mysql://192.168.56.101/";
-    private static final String BDNAME = "bdalmacen";
-    private static final String USER = "arya";
-    private static final String PASSWORD = "arya";
+    private static final String LOCALHOST = "jdbc:mysql://127.0.0.1/";
+    private static final String BDNAME = "p81Alexey";
+    private static final String USER = "root";
+    private static final String PASSWORD = "qwer";
 
     private static java.sql.Connection instance = null;
 
     // Patrón Singleton
     // Constructor privado no accesible desde otras clases
-    private Connection() {
+    private Conn() {
     }
 
     // Método de clase para acceder a la instancia del objeto Connection
