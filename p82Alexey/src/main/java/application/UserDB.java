@@ -343,6 +343,7 @@ public class UserDB extends javax.swing.JPanel {
             values.delete(0, values.indexOf(",") + 1);
 
             prest.setDouble(5, Double.parseDouble(values.toString()));
+            prest.executeUpdate();
         } catch (SQLException e) {
             jTextArea1.setText(e.toString());
         }
