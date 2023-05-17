@@ -1,15 +1,17 @@
 package com.mycompany.p82alexey;
 
+import BDUtils.Conn;
 import BDUtils.FacturaDAO;
-import application.*;
+import application.MainFrame;
+import java.sql.Connection;
+
 
 public class P82Alexey {
 
     public static void main(String[] args) {
         System.out.println("Hello World!");
-        FacturaDAO test = new FacturaDAO();
-        UserInterfaceBD tmp = new UserInterfaceBD();
         
+        MainFrame tmp = new MainFrame();
     }
 }
 /*

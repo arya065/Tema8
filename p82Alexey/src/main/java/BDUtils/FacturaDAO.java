@@ -1,4 +1,3 @@
-
 package BDUtils;
 
 import java.sql.Connection;
@@ -17,10 +16,10 @@ import java.util.List;
  */
 public class FacturaDAO implements InterfaceFactura {
 
-    private Connection con = null;
+    private Connection con;
 
-    public FacturaDAO() {
-        con = Conn.getInstance();
+    public FacturaDAO(String localhost, String bdname, String user, String password) {
+        con = Conn.getInstance(localhost, bdname, user, password);
     }
 
     @Override
