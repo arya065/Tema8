@@ -5,38 +5,28 @@ import java.awt.*;
 
 public class UserInterfaceEntry extends JPanel {
 
-    private JFrame frame;
+    private JPanel panel;
     private JTextField localhost;
+    private JLabel labelhost;
     private JTextField dbName;
+    private JLabel labeldb;
     private JTextField userName;
+    private JLabel labeluser;
     private JPasswordField password;
+    private JLabel labelpass;
 
     public UserInterfaceEntry() {
         //create panel
         this.setLayout(new GridBagLayout());
-        //create frame
-        frame = new JFrame("My first DB App");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(500, 500);
-        frame.setVisible(true);
-        
+
         //create fields with localhost,dbname, username, password
-        localhost = new JTextField("Insert localhost");
-        dbName = new JTextField("Insert name of database");
-        userName = new JTextField("Insert username");
-        password = new JPasswordField("Insert password");
-        
-        //add fields
-        frame.add(localhost);
-        frame.add(dbName);
-        frame.add(userName);
-        frame.add(password);
-        
-        // this. options
-//        frame.add(this);
-        
-        
-        
+        localhost = new JTextField("");
+        dbName = new JTextField("");
+        userName = new JTextField("");
+        password = new JPasswordField("");
+
+        // create labels
+        labelhost = new JLabel("");
     }
 
 }
