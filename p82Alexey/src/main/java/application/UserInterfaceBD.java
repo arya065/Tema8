@@ -10,7 +10,6 @@ public class UserInterfaceBD extends JPanel {
 
     public UserInterfaceBD() {
         this.frame = new JFrame("test");
-        this.panel = new UserEntry();
     }
 
     private void initComponents() {
