@@ -40,7 +40,8 @@ public class MainFrame extends JFrame {
         this.add(intBD);
         this.repaint();
         this.revalidate();
-        this.setSize(1320, 422);
+        this.setSize(1100, 500);
+        this.setResizable(false);
     }
 
 }
