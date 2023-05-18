@@ -49,9 +49,9 @@ public class UserEntry extends javax.swing.JPanel {
 
         jLabel11.setText("Insert username:  ");
 
-        jTextField7.setText("root");
+        jTextField7.setText("arya");
 
-        jPasswordField3.setText("qwer");
+        jPasswordField3.setText("arya");
         jPasswordField3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jPasswordField3ActionPerformed(evt);
@@ -64,7 +64,7 @@ public class UserEntry extends javax.swing.JPanel {
 
         jTextField8.setText("p81Alexey");
 
-        jTextField9.setText("127.0.0.1");
+        jTextField9.setText("192.168.56.101");
         jTextField9.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jTextField9MouseClicked(evt);

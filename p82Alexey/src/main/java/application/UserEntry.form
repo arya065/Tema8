@@ -92,12 +92,12 @@
     </Component>
     <Component class="javax.swing.JTextField" name="jTextField7">
       <Properties>
-        <Property name="text" type="java.lang.String" value="root"/>
+        <Property name="text" type="java.lang.String" value="arya"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JPasswordField" name="jPasswordField3">
       <Properties>
-        <Property name="text" type="java.lang.String" value="qwer"/>
+        <Property name="text" type="java.lang.String" value="arya"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jPasswordField3ActionPerformed"/>
@@ -120,7 +120,7 @@
     </Component>
     <Component class="javax.swing.JTextField" name="jTextField9">
       <Properties>
-        <Property name="text" type="java.lang.String" value="127.0.0.1"/>
+        <Property name="text" type="java.lang.String" value="192.168.56.101"/>
       </Properties>
       <Events>
         <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jTextField9MouseClicked"/>
