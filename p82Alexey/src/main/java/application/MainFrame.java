@@ -3,17 +3,17 @@ package application;
 import BDUtils.Conn;
 import java.awt.Dimension;
 import java.sql.Connection;
+import java.time.LocalTime;
 import javax.swing.*;
 
 public class MainFrame extends JFrame {
 
     UserEntry intEntry;
     UserDB intBD;
-    Connection con;
 
     public MainFrame() {
         intEntry = new UserEntry();
-        
+
         initComponents();
 
     }
@@ -41,7 +41,7 @@ public class MainFrame extends JFrame {
         this.repaint();
         this.revalidate();
         this.setSize(1100, 500);
-        this.setResizable(false);
+//        this.setResizable(false);
     }
 
 }
