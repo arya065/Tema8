@@ -17,10 +17,11 @@ import javax.persistence.criteria.Root;
  */
 public class FacturaJpaController implements Serializable {
 
+    private EntityManagerFactory emf = null;
+
     public FacturaJpaController(EntityManagerFactory emf) {
         this.emf = emf;
     }
-    private EntityManagerFactory emf = null;
 
     public EntityManager getEntityManager() {
         return emf.createEntityManager();
