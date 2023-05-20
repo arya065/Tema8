@@ -1,47 +1,33 @@
 package application;
 
-import BDUtils.Conn;
-import java.awt.Dimension;
-import java.sql.Connection;
-import java.time.LocalTime;
+import Controladores.FacturaJpaController;
+import javax.persistence.*;
 import javax.swing.*;
 
 public class MainFrame extends JFrame {
 
-    UserEntry intEntry;
+    //variables para utilizar
     UserDB intBD;
+    EntityManagerFactory factory;
+    FacturaJpaController controller;
 
+    //constructor para ejecutar la programma
     public MainFrame() {
-        intEntry = new UserEntry();
-
+        this.factory = Persistence.createEntityManagerFactory("com.mycompany_p82Alexey_jar_1.0-SNAPSHOTPU");
+        controller = new FacturaJpaController(factory);
+        this.intBD = new UserDB(controller);
         initComponents();
 
     }
 
+    //anadir Panel UserDB y poner las opciones
     private void initComponents() {
-        this.add(intEntry);
-
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setSize(400, 300);
-        this.setVisible(true);
-
-        do {
-            if (intEntry.closed()) {
-                setintBDVisible();
-            }
-        } while (!intEntry.closed());
-
-    }
-
-    public void setintBDVisible() {
-//        this.con = intEntry.getConnection();
-        this.remove(intEntry);
-        intBD = new UserDB(intEntry.getConnection());
-        this.add(intBD);
-        this.repaint();
-        this.revalidate();
         this.setSize(1100, 500);
-//        this.setResizable(false);
+        this.setVisible(true);
+        this.add(intBD);
+        this.setResizable(false);
+
     }
 
 }

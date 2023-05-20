@@ -4,14 +4,14 @@
  */
 package application;
 
-import BDUtils.FacturaVO;
-import java.sql.Connection;
+import Controladores.FacturaJpaController;
+import Controladores.exceptions.NonexistentEntityException;
+import Entities.Factura;
+import java.time.*;
+import java.util.*;
 import java.sql.Date;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.time.LocalDate;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -22,11 +22,10 @@ public class UserDB extends javax.swing.JPanel {
     /**
      * Creates new form UserDB
      */
-    private String sql;
-    private Connection con;
+    private FacturaJpaController controller;
 
-    public UserDB(Connection con) {
-        this.con = con;
+    public UserDB(FacturaJpaController controller) {
+        this.controller = controller;
         initComponents();
     }
 
@@ -49,16 +48,13 @@ public class UserDB extends javax.swing.JPanel {
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         jTextField2 = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
         jTextField5 = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
-        jTextField6 = new javax.swing.JTextField();
         jLabel12 = new javax.swing.JLabel();
         jTextField7 = new javax.swing.JTextField();
         jTextField8 = new javax.swing.JTextField();
@@ -69,6 +65,9 @@ public class UserDB extends javax.swing.JPanel {
         jLabel14 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
+        jLabel17 = new javax.swing.JLabel();
+        jLabel18 = new javax.swing.JLabel();
+        jLabel19 = new javax.swing.JLabel();
 
         jButton1.setText("Create");
         jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -110,13 +109,6 @@ public class UserDB extends javax.swing.JPanel {
 
         jLabel6.setText("SELECT");
 
-        jTextField1.setText("*");
-        jTextField1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jTextField1MouseClicked(evt);
-            }
-        });
-
         jLabel7.setText("FROM");
 
         jTextField2.setText("factura");
@@ -127,13 +119,6 @@ public class UserDB extends javax.swing.JPanel {
         });
 
         jLabel8.setText("UPDATE");
-
-        jTextField3.setText("factura");
-        jTextField3.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jTextField3MouseClicked(evt);
-            }
-        });
 
         jLabel9.setText("SET");
 
@@ -152,13 +137,6 @@ public class UserDB extends javax.swing.JPanel {
         jLabel10.setText("=");
 
         jLabel11.setText("DELETE FROM");
-
-        jTextField6.setText("factura");
-        jTextField6.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jTextField6MouseClicked(evt);
-            }
-        });
 
         jLabel12.setText("WHERE");
 
@@ -195,6 +173,12 @@ public class UserDB extends javax.swing.JPanel {
 
         jLabel16.setText(" descripcion, totalImporteFactura");
 
+        jLabel17.setText("*");
+
+        jLabel18.setText("factura");
+
+        jLabel19.setText("factura");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -217,11 +201,11 @@ public class UserDB extends javax.swing.JPanel {
                                     .addComponent(jTextField10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addGap(112, 112, 112)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel7)
                             .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel6)
-                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel17))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -238,16 +222,16 @@ public class UserDB extends javax.swing.JPanel {
                                     .addComponent(jTextField5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel15, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jTextField3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.LEADING))))
+                                    .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel19, javax.swing.GroupLayout.Alignment.LEADING))))
                         .addGap(76, 76, 76)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel12)
-                            .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel11)
                             .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel14)
-                            .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel18)))
                     .addGroup(layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -278,7 +262,8 @@ public class UserDB extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(6, 6, 6)
+                                .addComponent(jLabel19)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jLabel9)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -291,13 +276,13 @@ public class UserDB extends javax.swing.JPanel {
                                 .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel17))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(jLabel7)
                                     .addComponent(jLabel13))
-                                .addGap(36, 36, 36)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jTextField10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
@@ -306,8 +291,8 @@ public class UserDB extends javax.swing.JPanel {
                         .addGap(60, 60, 60)
                         .addComponent(jLabel11)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel18)
+                        .addGap(18, 18, 18)
                         .addComponent(jLabel12)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel14)
@@ -324,7 +309,8 @@ public class UserDB extends javax.swing.JPanel {
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
-
+    
+    //los metodos de jtextField son para limpiar los datos cuando pulsas 
     private void jTextField8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTextField8MouseClicked
         jTextField8.setText("");
     }//GEN-LAST:event_jTextField8MouseClicked
@@ -333,120 +319,76 @@ public class UserDB extends javax.swing.JPanel {
         jTextField10.setText("");
     }//GEN-LAST:event_jTextField10MouseClicked
 
-    private void jTextField1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTextField1MouseClicked
-        jTextField1.setText("");
-    }//GEN-LAST:event_jTextField1MouseClicked
-
     private void jTextField2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTextField2MouseClicked
         jTextField2.setText("");
     }//GEN-LAST:event_jTextField2MouseClicked
-
-    private void jTextField3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTextField3MouseClicked
-        jTextField3.setText("");
-
-    }//GEN-LAST:event_jTextField3MouseClicked
 
     private void jTextField5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTextField5MouseClicked
         jTextField5.setText("");
 
     }//GEN-LAST:event_jTextField5MouseClicked
 
-    private void jTextField6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTextField6MouseClicked
-        jTextField6.setText("");
-
-    }//GEN-LAST:event_jTextField6MouseClicked
-
     private void jTextField7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTextField7MouseClicked
         jTextField7.setText("");
     }//GEN-LAST:event_jTextField7MouseClicked
 
+    // se anade factura que creamos a servidor, pero se pone pk siguente en la tabla
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
-        sql = "INSERT INTO " + jTextField8.getText() + "(pk,codigoUnico,fechaEmision,descripcion,totalImporteFactura)" + " values (?,?,?,?,?)";
         StringBuffer values = new StringBuffer(jTextField10.getText());
-
-        try ( PreparedStatement prest = con.prepareStatement(sql)) {
-            prest.setInt(1, Integer.parseInt(values.substring(0, values.indexOf(","))));
+        String[] fields = new String[5];
+        for (int i = 0; i < 4; i++) {
+            fields[i] = values.substring(0, values.indexOf(","));
             values.delete(0, values.indexOf(",") + 1);
-
-            prest.setString(2, values.substring(0, values.indexOf(",")));
-            values.delete(0, values.indexOf(",") + 1);
-
-            String date = values.substring(0, values.indexOf(","));
-            LocalDate tmp = getDate(date);
-            prest.setDate(3, Date.valueOf(tmp));
-            values.delete(0, values.indexOf(",") + 1);
-
-            prest.setString(4, values.substring(0, values.indexOf(",")));
-            values.delete(0, values.indexOf(",") + 1);
-
-            prest.setDouble(5, Double.parseDouble(values.toString()));
-            prest.executeUpdate();
-        } catch (SQLException e) {
-            jTextArea1.setText(e.toString());
         }
+        fields[4] = values.toString();
+        LocalDate date = getDate(fields[2]);
+        Factura tmp = new Factura(Integer.parseInt(fields[0]), fields[1], Date.valueOf(date), fields[3], Double.parseDouble(fields[4]));
+        controller.create(tmp);
     }//GEN-LAST:event_jButton1MouseClicked
 
+    //muestra toda lista de facturas
     private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
-        try ( Statement st = con.createStatement()) {
-            String value = jTextField1.getText();
-            String table = jTextField2.getText();
-            ResultSet res = st.executeQuery("select " + value + " from " + table);
-            jTextArea1.setText("");
-            String tmp = "";
-            while (res.next()) {
-                tmp += res.getInt("pk") + "," + res.getString("codigoUnico") + ","
-                        + res.getDate("fechaEmision").toLocalDate() + ","
-                        + res.getString("descripcion") + ","
-                        + res.getDouble("totalImporteFactura") + "\n";
-                jTextArea1.setText(tmp);
-            }
-        } catch (SQLException e) {
-            jTextArea1.setText(e.toString());
+        List<Factura> list = controller.findFacturaEntities();
+        String result = "";
+        for (Factura s : list) {
+            result += s.toString() + "\n";
         }
+        jTextArea1.setText(result);
     }//GEN-LAST:event_jButton2MouseClicked
 
+    //elemina factura por pk
     private void jButton4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton4MouseClicked
-        String sql = "delete from " + jTextField6.getText() + " where pk = ?";
-
-        try ( PreparedStatement prest = con.prepareStatement(sql)) {
-
-            prest.setInt(1, Integer.parseInt(jTextField7.getText()));
-            prest.executeUpdate();
-        } catch (SQLException e) {
-            jTextArea1.setText(e.toString());
+        int pk = Integer.parseInt(jTextField7.getText());
+        try {
+            controller.destroy(pk);
+        } catch (NonexistentEntityException ex) {
+            Logger.getLogger(UserDB.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }//GEN-LAST:event_jButton4MouseClicked
 
+    //modificar la factura por pk
     private void jButton3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton3MouseClicked
-        String sql = "update " + jTextField3.getText() + " set  codigoUnico = ?, fechaEmision = ?, descripcion = ?,"
-                + " totalImporteFactura = ? where pk=?";
         StringBuilder values = new StringBuilder(jTextField5.getText());
         String[] fields = values.toString().split(",");
-        
+
         int pk = Integer.parseInt(fields[0]);
         String codigo = fields[1];
         LocalDate fecha = getDate(fields[2]);
         String descripcion = fields[3];
         double importe = Double.parseDouble(fields[4]);
-
-        try ( PreparedStatement prest = con.prepareStatement(sql)) {
-
-            prest.setString(1, codigo);
-            prest.setDate(2, Date.valueOf(fecha));
-            prest.setString(3, descripcion);
-            prest.setDouble(4, importe);
-            prest.setInt(5, pk);
-
-            prest.executeUpdate();
-        } catch (SQLException e) {
-            jTextArea1.setText(e.toString());
+        Factura tmp = new Factura(pk, codigo, Date.valueOf(fecha), descripcion, importe);
+        try {
+            controller.edit(tmp);
+        } catch (Exception ex) {
+            Logger.getLogger(UserDB.class.getName()).log(Level.SEVERE, null, ex);
         }
+
 
     }//GEN-LAST:event_jButton3MouseClicked
 
     private void jTextField5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField5ActionPerformed
-        // TODO add your handling code here:
+        jTextField5.setText("");
     }//GEN-LAST:event_jTextField5ActionPerformed
 
 
@@ -463,6 +405,9 @@ public class UserDB extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -473,12 +418,9 @@ public class UserDB extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField10;
     private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField5;
-    private javax.swing.JTextField jTextField6;
     private javax.swing.JTextField jTextField7;
     private javax.swing.JTextField jTextField8;
     // End of variables declaration//GEN-END:variables

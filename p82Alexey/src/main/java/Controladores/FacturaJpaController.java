@@ -27,6 +27,8 @@ public class FacturaJpaController implements Serializable {
         return emf.createEntityManager();
     }
 
+    
+    // создаёт новую сущность в БД
     public void create(Factura factura) {
         EntityManager em = null;
         try {
@@ -93,6 +95,7 @@ public class FacturaJpaController implements Serializable {
         return findFacturaEntities(false, maxResults, firstResult);
     }
 
+    // получение списка сущностей из таблицы с возможностью указать количество результатов и смещения
     private List<Factura> findFacturaEntities(boolean all, int maxResults, int firstResult) {
         EntityManager em = getEntityManager();
         try {

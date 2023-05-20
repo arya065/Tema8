@@ -53,6 +53,14 @@ public class Factura implements Serializable {
         this.pk = pk;
     }
 
+    public Factura(Integer pk, String codigoUnico, Date fechaEmision, String descripcion, Double totalImporteFactura) {
+        this.pk = pk;
+        this.codigoUnico = codigoUnico;
+        this.fechaEmision = fechaEmision;
+        this.descripcion = descripcion;
+        this.totalImporteFactura = totalImporteFactura;
+    }
+
     public Integer getPk() {
         return pk;
     }
@@ -115,7 +123,7 @@ public class Factura implements Serializable {
 
     @Override
     public String toString() {
-        return "Entities.Factura[ pk=" + pk + " ]";
+        return "Factura{" + "pk=" + pk + ", codigoUnico=" + codigoUnico + ", fechaEmision=" + fechaEmision + ", descripcion=" + descripcion + ", totalImporteFactura=" + totalImporteFactura + '}';
     }
-    
+
 }
