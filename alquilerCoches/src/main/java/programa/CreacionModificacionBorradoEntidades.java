@@ -139,7 +139,13 @@ public class CreacionModificacionBorradoEntidades {
         TarjetaBancaria t = tc.findByNumero("122155");
         crearClienteConTarjeta(t);
         Consultas.mostrarClientes();
-
+        
+        System.out.println("CREACIÓN DE UN ALQUILER, A PARTIR DE UN CLIENTE Y UN VEHÍCULO EXISTENTES --------------");
+        Cliente c = cc.findCliente(1);
+        Vehiculo v = vc.findVehiculo(2);
+        crearAlquiler(c, v);
+        Consultas.mostrarAlquileres();
+        
         System.out.println("CREACIÓN DE UN VEHICULO CON UN ALQUILER EXISTENTE EN LA BD --------------");
         // Creación de un vehículo, al que se le asigna un alquiler existente
         // Busco un alquiler y se lo asigno a este vehículo, por lo que 
@@ -149,11 +155,7 @@ public class CreacionModificacionBorradoEntidades {
         crearVehiculoConAlquiler(alq);
         Consultas.mostrarVehiculos();
         
-        System.out.println("CREACIÓN DE UN ALQUILER, A PARTIR DE UN CLIENTE Y UN VEHÍCULO EXISTENTES --------------");
-        Cliente c = cc.findCliente(1);
-        Vehiculo v = vc.findVehiculo(2);
-        crearAlquiler(c, v);
-        Consultas.mostrarAlquileres();
+        
         
         System.out.println("MODIFICACIÓN DE UN VEHÍCULO --------------");
         // Primero se busca el vehículo a modificar en la BD

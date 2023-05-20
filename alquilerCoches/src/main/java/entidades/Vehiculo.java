@@ -138,7 +138,9 @@ public class Vehiculo implements Serializable {
     public void setPrecio(double precio) {
         this.precio = precio;
     }
-
+    public void addToAlquilerList(Alquiler alq){
+        alquilerList.add(alq);
+    }
     public List<Alquiler> getAlquilerList() {
         return alquilerList;
     }
