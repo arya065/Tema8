@@ -3,7 +3,7 @@ package com.mycompany.finaldb;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.swing.*;
-import jpaController.*;
+import jpaControllers.*;
 
 public class FinalDB {
 

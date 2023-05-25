@@ -115,7 +115,7 @@ public class Cliente implements Serializable {
 
     @Override
     public String toString() {
-        return "idCliente=" + idCliente + ", nombre=" + nombre + ", tel=" + tel + ", empresaCollection=" + empresaCollection ;
+        return "entities.Cliente[ idCliente=" + idCliente + " ]";
     }
-
+    
 }

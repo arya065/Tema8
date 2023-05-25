@@ -5,7 +5,6 @@
 package entities;
 
 import java.io.Serializable;
-import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -15,7 +14,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 /**
@@ -39,8 +38,8 @@ public class Fabricante implements Serializable {
     @Basic(optional = false)
     @Column(name = "nombre")
     private String nombre;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idFabricante")
-    private Collection<Producto> productoCollection;
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "idFabricante")
+    private Producto producto;
 
     public Fabricante() {
     }
@@ -70,12 +69,12 @@ public class Fabricante implements Serializable {
         this.nombre = nombre;
     }
 
-    public Collection<Producto> getProductoCollection() {
-        return productoCollection;
+    public Producto getProducto() {
+        return producto;
     }
 
-    public void setProductoCollection(Collection<Producto> productoCollection) {
-        this.productoCollection = productoCollection;
+    public void setProducto(Producto producto) {
+        this.producto = producto;
     }
 
     @Override
@@ -100,7 +99,9 @@ public class Fabricante implements Serializable {
 
     @Override
     public String toString() {
-        return  "idFabricante=" + idFabricante + ", nombre=" + nombre + ", productoCollection=" + productoCollection;
+        return "idFabricante=" + idFabricante ;
     }
 
+    
+    
 }

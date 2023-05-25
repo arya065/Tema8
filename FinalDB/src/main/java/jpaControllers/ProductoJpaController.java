@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package jpaController;
+package jpaControllers;
 
 import java.io.Serializable;
 import javax.persistence.Query;
@@ -17,8 +17,8 @@ import java.util.Collection;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import jpaController.exceptions.IllegalOrphanException;
-import jpaController.exceptions.NonexistentEntityException;
+import jpaControllers.exceptions.IllegalOrphanException;
+import jpaControllers.exceptions.NonexistentEntityException;
 
 /**
  *
@@ -35,9 +35,23 @@ public class ProductoJpaController implements Serializable {
         return emf.createEntityManager();
     }
 
-    public void create(Producto producto) {
+    public void create(Producto producto) throws IllegalOrphanException {
         if (producto.getEmpresaCollection() == null) {
             producto.setEmpresaCollection(new ArrayList<Empresa>());
+        }
+        List<String> illegalOrphanMessages = null;
+        Fabricante idFabricanteOrphanCheck = producto.getIdFabricante();
+        if (idFabricanteOrphanCheck != null) {
+            Producto oldProductoOfIdFabricante = idFabricanteOrphanCheck.getProducto();
+            if (oldProductoOfIdFabricante != null) {
+                if (illegalOrphanMessages == null) {
+                    illegalOrphanMessages = new ArrayList<String>();
+                }
+                illegalOrphanMessages.add("The Fabricante " + idFabricanteOrphanCheck + " already has an item of type Producto whose idFabricante column cannot be null. Please make another selection for the idFabricante field.");
+            }
+        }
+        if (illegalOrphanMessages != null) {
+            throw new IllegalOrphanException(illegalOrphanMessages);
         }
         EntityManager em = null;
         try {
@@ -56,7 +70,7 @@ public class ProductoJpaController implements Serializable {
             producto.setEmpresaCollection(attachedEmpresaCollection);
             em.persist(producto);
             if (idFabricante != null) {
-                idFabricante.getProductoCollection().add(producto);
+                idFabricante.setProducto(producto);
                 idFabricante = em.merge(idFabricante);
             }
             for (Empresa empresaCollectionEmpresa : producto.getEmpresaCollection()) {
@@ -87,6 +101,15 @@ public class ProductoJpaController implements Serializable {
             Collection<Empresa> empresaCollectionOld = persistentProducto.getEmpresaCollection();
             Collection<Empresa> empresaCollectionNew = producto.getEmpresaCollection();
             List<String> illegalOrphanMessages = null;
+            if (idFabricanteNew != null && !idFabricanteNew.equals(idFabricanteOld)) {
+                Producto oldProductoOfIdFabricante = idFabricanteNew.getProducto();
+                if (oldProductoOfIdFabricante != null) {
+                    if (illegalOrphanMessages == null) {
+                        illegalOrphanMessages = new ArrayList<String>();
+                    }
+                    illegalOrphanMessages.add("The Fabricante " + idFabricanteNew + " already has an item of type Producto whose idFabricante column cannot be null. Please make another selection for the idFabricante field.");
+                }
+            }
             for (Empresa empresaCollectionOldEmpresa : empresaCollectionOld) {
                 if (!empresaCollectionNew.contains(empresaCollectionOldEmpresa)) {
                     if (illegalOrphanMessages == null) {
@@ -111,11 +134,11 @@ public class ProductoJpaController implements Serializable {
             producto.setEmpresaCollection(empresaCollectionNew);
             producto = em.merge(producto);
             if (idFabricanteOld != null && !idFabricanteOld.equals(idFabricanteNew)) {
-                idFabricanteOld.getProductoCollection().remove(producto);
+                idFabricanteOld.setProducto(null);
                 idFabricanteOld = em.merge(idFabricanteOld);
             }
             if (idFabricanteNew != null && !idFabricanteNew.equals(idFabricanteOld)) {
-                idFabricanteNew.getProductoCollection().add(producto);
+                idFabricanteNew.setProducto(producto);
                 idFabricanteNew = em.merge(idFabricanteNew);
             }
             for (Empresa empresaCollectionNewEmpresa : empresaCollectionNew) {
@@ -171,7 +194,7 @@ public class ProductoJpaController implements Serializable {
             }
             Fabricante idFabricante = producto.getIdFabricante();
             if (idFabricante != null) {
-                idFabricante.getProductoCollection().remove(producto);
+                idFabricante.setProducto(null);
                 idFabricante = em.merge(idFabricante);
             }
             em.remove(producto);

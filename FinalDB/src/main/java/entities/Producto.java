@@ -14,10 +14,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 /**
@@ -46,7 +46,7 @@ public class Producto implements Serializable {
     @Column(name = "nombre")
     private String nombre;
     @JoinColumn(name = "id_fabricante", referencedColumnName = "id_fabricante")
-    @ManyToOne(optional = false)
+    @OneToOne(optional = false)
     private Fabricante idFabricante;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idProducto")
     private Collection<Empresa> empresaCollection;
@@ -126,7 +126,7 @@ public class Producto implements Serializable {
 
     @Override
     public String toString() {
-        return"idProducto=" + idProducto + ", precio=" + precio + ", nombre=" + nombre + ", idFabricante=" + idFabricante + ", empresaCollection=" + empresaCollection;
+        return  "idProducto=" + idProducto + ", precio=" + precio + ", nombre=" + nombre + ", idFabricante=" + idFabricante.getIdFabricante() + ", empresaCollection=" + empresaCollection;
     }
 
 }

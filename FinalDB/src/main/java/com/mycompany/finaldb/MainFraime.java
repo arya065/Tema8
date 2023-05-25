@@ -5,7 +5,7 @@
 package com.mycompany.finaldb;
 
 import entities.*;
-import jpaController.*;
+import jpaControllers.*;
 import java.util.*;
 
 /**

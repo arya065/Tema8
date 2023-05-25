@@ -112,7 +112,7 @@ public class Empresa implements Serializable {
 
     @Override
     public String toString() {
-        return "Empresa{" + "idEmpresa=" + idEmpresa + ", nombre=" + nombre + ", clienteCollection=" + clienteCollection + ", idProducto=" + idProducto + '}';
+        return "entities.Empresa[ idEmpresa=" + idEmpresa + " ]";
     }
-
+    
 }

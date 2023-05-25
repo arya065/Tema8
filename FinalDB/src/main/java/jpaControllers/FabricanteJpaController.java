@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package jpaController;
+package jpaControllers;
 
 import entities.Fabricante;
 import java.io.Serializable;
@@ -12,12 +12,11 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import entities.Producto;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import jpaController.exceptions.IllegalOrphanException;
-import jpaController.exceptions.NonexistentEntityException;
+import jpaControllers.exceptions.IllegalOrphanException;
+import jpaControllers.exceptions.NonexistentEntityException;
 
 /**
  *
@@ -35,28 +34,24 @@ public class FabricanteJpaController implements Serializable {
     }
 
     public void create(Fabricante fabricante) {
-        if (fabricante.getProductoCollection() == null) {
-            fabricante.setProductoCollection(new ArrayList<Producto>());
-        }
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            Collection<Producto> attachedProductoCollection = new ArrayList<Producto>();
-            for (Producto productoCollectionProductoToAttach : fabricante.getProductoCollection()) {
-                productoCollectionProductoToAttach = em.getReference(productoCollectionProductoToAttach.getClass(), productoCollectionProductoToAttach.getIdProducto());
-                attachedProductoCollection.add(productoCollectionProductoToAttach);
+            Producto producto = fabricante.getProducto();
+            if (producto != null) {
+                producto = em.getReference(producto.getClass(), producto.getIdProducto());
+                fabricante.setProducto(producto);
             }
-            fabricante.setProductoCollection(attachedProductoCollection);
             em.persist(fabricante);
-            for (Producto productoCollectionProducto : fabricante.getProductoCollection()) {
-                Fabricante oldIdFabricanteOfProductoCollectionProducto = productoCollectionProducto.getIdFabricante();
-                productoCollectionProducto.setIdFabricante(fabricante);
-                productoCollectionProducto = em.merge(productoCollectionProducto);
-                if (oldIdFabricanteOfProductoCollectionProducto != null) {
-                    oldIdFabricanteOfProductoCollectionProducto.getProductoCollection().remove(productoCollectionProducto);
-                    oldIdFabricanteOfProductoCollectionProducto = em.merge(oldIdFabricanteOfProductoCollectionProducto);
+            if (producto != null) {
+                Fabricante oldIdFabricanteOfProducto = producto.getIdFabricante();
+                if (oldIdFabricanteOfProducto != null) {
+                    oldIdFabricanteOfProducto.setProducto(null);
+                    oldIdFabricanteOfProducto = em.merge(oldIdFabricanteOfProducto);
                 }
+                producto.setIdFabricante(fabricante);
+                producto = em.merge(producto);
             }
             em.getTransaction().commit();
         } finally {
@@ -72,38 +67,31 @@ public class FabricanteJpaController implements Serializable {
             em = getEntityManager();
             em.getTransaction().begin();
             Fabricante persistentFabricante = em.find(Fabricante.class, fabricante.getIdFabricante());
-            Collection<Producto> productoCollectionOld = persistentFabricante.getProductoCollection();
-            Collection<Producto> productoCollectionNew = fabricante.getProductoCollection();
+            Producto productoOld = persistentFabricante.getProducto();
+            Producto productoNew = fabricante.getProducto();
             List<String> illegalOrphanMessages = null;
-            for (Producto productoCollectionOldProducto : productoCollectionOld) {
-                if (!productoCollectionNew.contains(productoCollectionOldProducto)) {
-                    if (illegalOrphanMessages == null) {
-                        illegalOrphanMessages = new ArrayList<String>();
-                    }
-                    illegalOrphanMessages.add("You must retain Producto " + productoCollectionOldProducto + " since its idFabricante field is not nullable.");
+            if (productoOld != null && !productoOld.equals(productoNew)) {
+                if (illegalOrphanMessages == null) {
+                    illegalOrphanMessages = new ArrayList<String>();
                 }
+                illegalOrphanMessages.add("You must retain Producto " + productoOld + " since its idFabricante field is not nullable.");
             }
             if (illegalOrphanMessages != null) {
                 throw new IllegalOrphanException(illegalOrphanMessages);
             }
-            Collection<Producto> attachedProductoCollectionNew = new ArrayList<Producto>();
-            for (Producto productoCollectionNewProductoToAttach : productoCollectionNew) {
-                productoCollectionNewProductoToAttach = em.getReference(productoCollectionNewProductoToAttach.getClass(), productoCollectionNewProductoToAttach.getIdProducto());
-                attachedProductoCollectionNew.add(productoCollectionNewProductoToAttach);
+            if (productoNew != null) {
+                productoNew = em.getReference(productoNew.getClass(), productoNew.getIdProducto());
+                fabricante.setProducto(productoNew);
             }
-            productoCollectionNew = attachedProductoCollectionNew;
-            fabricante.setProductoCollection(productoCollectionNew);
             fabricante = em.merge(fabricante);
-            for (Producto productoCollectionNewProducto : productoCollectionNew) {
-                if (!productoCollectionOld.contains(productoCollectionNewProducto)) {
-                    Fabricante oldIdFabricanteOfProductoCollectionNewProducto = productoCollectionNewProducto.getIdFabricante();
-                    productoCollectionNewProducto.setIdFabricante(fabricante);
-                    productoCollectionNewProducto = em.merge(productoCollectionNewProducto);
-                    if (oldIdFabricanteOfProductoCollectionNewProducto != null && !oldIdFabricanteOfProductoCollectionNewProducto.equals(fabricante)) {
-                        oldIdFabricanteOfProductoCollectionNewProducto.getProductoCollection().remove(productoCollectionNewProducto);
-                        oldIdFabricanteOfProductoCollectionNewProducto = em.merge(oldIdFabricanteOfProductoCollectionNewProducto);
-                    }
+            if (productoNew != null && !productoNew.equals(productoOld)) {
+                Fabricante oldIdFabricanteOfProducto = productoNew.getIdFabricante();
+                if (oldIdFabricanteOfProducto != null) {
+                    oldIdFabricanteOfProducto.setProducto(null);
+                    oldIdFabricanteOfProducto = em.merge(oldIdFabricanteOfProducto);
                 }
+                productoNew.setIdFabricante(fabricante);
+                productoNew = em.merge(productoNew);
             }
             em.getTransaction().commit();
         } catch (Exception ex) {
@@ -135,12 +123,12 @@ public class FabricanteJpaController implements Serializable {
                 throw new NonexistentEntityException("The fabricante with id " + id + " no longer exists.", enfe);
             }
             List<String> illegalOrphanMessages = null;
-            Collection<Producto> productoCollectionOrphanCheck = fabricante.getProductoCollection();
-            for (Producto productoCollectionOrphanCheckProducto : productoCollectionOrphanCheck) {
+            Producto productoOrphanCheck = fabricante.getProducto();
+            if (productoOrphanCheck != null) {
                 if (illegalOrphanMessages == null) {
                     illegalOrphanMessages = new ArrayList<String>();
                 }
-                illegalOrphanMessages.add("This Fabricante (" + fabricante + ") cannot be destroyed since the Producto " + productoCollectionOrphanCheckProducto + " in its productoCollection field has a non-nullable idFabricante field.");
+                illegalOrphanMessages.add("This Fabricante (" + fabricante + ") cannot be destroyed since the Producto " + productoOrphanCheck + " in its producto field has a non-nullable idFabricante field.");
             }
             if (illegalOrphanMessages != null) {
                 throw new IllegalOrphanException(illegalOrphanMessages);
