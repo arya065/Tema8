@@ -6,10 +6,7 @@ drop table if exists `Fabricante`;
 CREATE TABLE Fabricante (
     `idFabricante` INT NOT NULL AUTO_INCREMENT,
     `nombre` VARCHAR(30) NOT NULL,
-    `idProducto` INT NOT NULL,
     PRIMARY KEY (`idFabricante`)
-    -- CONSTRAINT `fkProducto` FOREIGN KEY (`idProducto`)
---         REFERENCES `Producto` (`idProducto`)
 );
 
 drop table if exists `Producto`;
@@ -17,11 +14,8 @@ CREATE TABLE `Producto` (
     `idProducto` INT NOT NULL AUTO_INCREMENT,
     `precio` DOUBLE NOT NULL,
     `nombre` VARCHAR(20) NOT NULL,
-    `idEmpresa` INT NOT NULL,
     `idFabricante` INT NOT NULL,
     PRIMARY KEY (`idProducto`),
-  --   CONSTRAINT `fkEmpresa` FOREIGN KEY (`idEmpresa`)
---         REFERENCES `Empresa` (`idEmpresa`),
     CONSTRAINT `fkFabricante` FOREIGN KEY (`idFabricante`)
         REFERENCES `Fabricante` (`idFabricante`)
 );
@@ -30,7 +24,7 @@ drop table if exists `Empresa`;
 CREATE TABLE `Empresa` (
     `idEmpresa` INT NOT NULL AUTO_INCREMENT,
     `nombre` VARCHAR(20) NOT NULL,
-    `idCliente` INT NOT NULL,
+    -- `idCliente` INT NOT NULL,
     `idProducto` INT NOT NULL,
     PRIMARY KEY (`idEmpresa`),
     CONSTRAINT `fkProducto` FOREIGN KEY (`idProducto`)
