@@ -7,6 +7,8 @@ package com.mycompany.finaldb;
 import entities.*;
 import jpaControllers.*;
 import java.util.*;
+import jpaControllers.exceptions.IllegalOrphanException;
+import jpaControllers.exceptions.NonexistentEntityException;
 
 /**
  *
@@ -60,10 +62,25 @@ public class MainFraime extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jButton3.setText("Delete");
+        jButton3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton3MouseClicked(evt);
+            }
+        });
 
         jButton2.setText("Update");
+        jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton2MouseClicked(evt);
+            }
+        });
 
         jButton1.setText("Create");
+        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton1MouseClicked(evt);
+            }
+        });
 
         jTextField1.setText("attr1, attr2, ... , attrN");
 
@@ -75,27 +92,31 @@ public class MainFraime extends javax.swing.JFrame {
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTextField2, javax.swing.GroupLayout.DEFAULT_SIZE, 64, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 502, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton3)
-                .addContainerGap())
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton3)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jTextField1))))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, 31, Short.MAX_VALUE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jTextField1)
-                    .addComponent(jTextField2))
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton1)
+                    .addComponent(jButton2)
+                    .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextField1))
                 .addContainerGap())
         );
 
@@ -109,14 +130,13 @@ public class MainFraime extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 822, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 452, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 435, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -211,6 +231,93 @@ public class MainFraime extends javax.swing.JFrame {
         }
         jTextArea1.setText(list);
     }//GEN-LAST:event_jMenu6MouseClicked
+
+    private void jButton3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton3MouseClicked
+        String tableName = jTextField2.getText();
+        String values = jTextField1.getText();
+        String[] fields = values.split(",");
+
+        try {
+            if (tableName.equalsIgnoreCase("fabricante")) {
+                fbContr.destroy(Integer.parseInt(fields[0]));
+            } else if (tableName.equalsIgnoreCase("producto")) {
+                prContr.destroy(Integer.parseInt(fields[0]));
+            } else if (tableName.equalsIgnoreCase("cliente")) {
+                clContr.destroy(Integer.parseInt(fields[0]));
+            } else if (tableName.equalsIgnoreCase("empresa")) {
+                emContr.destroy(Integer.parseInt(fields[0]));
+            } else {
+                jTextArea1.setText("No existe esta tabla");
+            }
+        } catch (IllegalOrphanException e) {
+            jTextArea1.setText(e.toString());
+        } catch (NonexistentEntityException e) {
+            jTextArea1.setText(e.toString());
+        } catch (NumberFormatException e) {
+            jTextArea1.setText(e.toString());
+        }
+
+
+    }//GEN-LAST:event_jButton3MouseClicked
+
+    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
+        String tableName = jTextField2.getText();
+        String values = jTextField1.getText();
+        String[] fields = values.split(",");
+        try {
+            if (tableName.equalsIgnoreCase("fabricante")) {
+                Fabricante fabricante = new Fabricante(Integer.parseInt(fields[0]), fields[1]);
+                fbContr.create(fabricante);
+            } else if (tableName.equalsIgnoreCase("producto")) {
+                Producto producto = new Producto(Integer.parseInt(fields[0]), Double.parseDouble(fields[1]), fields[2]);
+                prContr.create(producto);
+            } else if (tableName.equalsIgnoreCase("cliente")) {
+                Cliente cliente = new Cliente(Integer.parseInt(fields[0]), fields[1]);
+                clContr.create(cliente);
+            } else if (tableName.equalsIgnoreCase("empresa")) {
+                Empresa empresa = new Empresa(Integer.parseInt(fields[0]), fields[1]);
+                emContr.create(empresa);
+            } else {
+                jTextArea1.setText("No existe esta tabla");
+            }
+        } catch (IllegalOrphanException e) {
+            jTextArea1.setText(e.toString());
+        } catch (NumberFormatException e) {
+            jTextArea1.setText(e.toString());
+        }
+
+    }//GEN-LAST:event_jButton1MouseClicked
+
+    private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
+        String tableName = jTextField2.getText();
+        String values = jTextField1.getText();
+        String[] fields = values.split(",");
+        try {
+            if (tableName.equalsIgnoreCase("fabricante")) {
+                Fabricante fabricante = new Fabricante(Integer.parseInt(fields[0]), fields[1]);
+                fbContr.edit(fabricante);
+            } else if (tableName.equalsIgnoreCase("producto")) {
+                Producto producto = new Producto(Integer.parseInt(fields[0]), Double.parseDouble(fields[1]), fields[2]);
+                prContr.edit(producto);
+            } else if (tableName.equalsIgnoreCase("cliente")) {
+                Cliente cliente = new Cliente(Integer.parseInt(fields[0]), fields[1]);
+                clContr.edit(cliente);
+            } else if (tableName.equalsIgnoreCase("empresa")) {
+                Empresa empresa = new Empresa(Integer.parseInt(fields[0]), fields[1]);
+                emContr.edit(empresa);
+            } else {
+                jTextArea1.setText("No existe esta tabla");
+            }
+        } catch (IllegalOrphanException e) {
+            jTextArea1.setText(e.toString());
+        } catch (NumberFormatException e) {
+            jTextArea1.setText(e.toString());
+        } catch (NonexistentEntityException e) {
+            jTextArea1.setText(e.toString());
+        } catch (Exception e) {
+            jTextArea1.setText(e.toString());
+        }
+    }//GEN-LAST:event_jButton2MouseClicked
 
     /**
      * @param args the command line arguments
