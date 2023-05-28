@@ -5,8 +5,11 @@
 package com.mycompany.finaldb;
 
 import entities.*;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import jpaControllers.*;
 import java.util.*;
+import javax.swing.JFrame;
 import jpaControllers.exceptions.IllegalOrphanException;
 import jpaControllers.exceptions.NonexistentEntityException;
 
@@ -44,81 +47,41 @@ public class MainFraime extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel4 = new javax.swing.JPanel();
-        jButton3 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
+        jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
+        jMenuItem3 = new javax.swing.JMenuItem();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
         jMenuBar2 = new javax.swing.JMenuBar();
         jMenu3 = new javax.swing.JMenu();
+        Button1Cliente = new javax.swing.JMenuItem();
+        Button2Cliente = new javax.swing.JMenuItem();
+        Button3Cliente = new javax.swing.JMenuItem();
+        Button4Cliente = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
+        Button1Empresa = new javax.swing.JMenuItem();
+        Button2Empresa = new javax.swing.JMenuItem();
+        Button3Empresa = new javax.swing.JMenuItem();
+        Button4Empresa = new javax.swing.JMenuItem();
         jMenu5 = new javax.swing.JMenu();
+        Button1Producto = new javax.swing.JMenuItem();
+        Button2Producto = new javax.swing.JMenuItem();
+        Button3Producto = new javax.swing.JMenuItem();
+        Button4Producto = new javax.swing.JMenuItem();
         jMenu6 = new javax.swing.JMenu();
+        Button1Fabricante = new javax.swing.JMenuItem();
+        Button2Fabricante = new javax.swing.JMenuItem();
+        Button3Fabricante = new javax.swing.JMenuItem();
+        Button4Fabricante = new javax.swing.JMenuItem();
+
+        jMenuItem1.setText("jMenuItem1");
+
+        jMenuItem2.setText("jMenuItem2");
+
+        jMenuItem3.setText("jMenuItem3");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        jButton3.setText("Delete");
-        jButton3.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButton3MouseClicked(evt);
-            }
-        });
-
-        jButton2.setText("Update");
-        jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButton2MouseClicked(evt);
-            }
-        });
-
-        jButton1.setText("Create");
-        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButton1MouseClicked(evt);
-            }
-        });
-
-        jTextField1.setText("attr1, attr2, ... , attrN");
-
-        jTextField2.setText("TableName");
-
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton3)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField1))))
-        );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2)
-                    .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField1))
-                .addContainerGap())
-        );
 
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
@@ -136,40 +99,152 @@ public class MainFraime extends javax.swing.JFrame {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 435, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 578, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
         jMenu3.setText("Cliente");
-        jMenu3.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jMenu3MouseClicked(evt);
+
+        Button1Cliente.setText("Get All");
+        Button1Cliente.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                Button1ClienteMouseReleased(evt);
             }
         });
+        jMenu3.add(Button1Cliente);
+
+        Button2Cliente.setText("Create");
+        Button2Cliente.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                Button2ClienteMouseReleased(evt);
+            }
+        });
+        jMenu3.add(Button2Cliente);
+
+        Button3Cliente.setText("Add Connecion");
+        Button3Cliente.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                Button3ClienteMouseReleased(evt);
+            }
+        });
+        jMenu3.add(Button3Cliente);
+
+        Button4Cliente.setText("Delete");
+        Button4Cliente.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                Button4ClienteMouseReleased(evt);
+            }
+        });
+        jMenu3.add(Button4Cliente);
+
         jMenuBar2.add(jMenu3);
 
         jMenu4.setText("Empresa");
-        jMenu4.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jMenu4MouseClicked(evt);
+
+        Button1Empresa.setText("Get All");
+        Button1Empresa.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                Button1EmpresaMouseReleased(evt);
             }
         });
+        jMenu4.add(Button1Empresa);
+
+        Button2Empresa.setText("Create");
+        Button2Empresa.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                Button2EmpresaMouseReleased(evt);
+            }
+        });
+        jMenu4.add(Button2Empresa);
+
+        Button3Empresa.setText("Add Connection");
+        Button3Empresa.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                Button3EmpresaMouseReleased(evt);
+            }
+        });
+        jMenu4.add(Button3Empresa);
+
+        Button4Empresa.setText("Delete");
+        Button4Empresa.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                Button4EmpresaMouseReleased(evt);
+            }
+        });
+        jMenu4.add(Button4Empresa);
+
         jMenuBar2.add(jMenu4);
 
         jMenu5.setText("Producto");
-        jMenu5.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jMenu5MouseClicked(evt);
+
+        Button1Producto.setText("Get All");
+        Button1Producto.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                Button1ProductoMouseReleased(evt);
             }
         });
+        jMenu5.add(Button1Producto);
+
+        Button2Producto.setText("Create");
+        Button2Producto.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                Button2ProductoMouseReleased(evt);
+            }
+        });
+        jMenu5.add(Button2Producto);
+
+        Button3Producto.setText("Add Connection");
+        Button3Producto.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                Button3ProductoMouseReleased(evt);
+            }
+        });
+        jMenu5.add(Button3Producto);
+
+        Button4Producto.setText("Delete");
+        Button4Producto.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                Button4ProductoMouseReleased(evt);
+            }
+        });
+        jMenu5.add(Button4Producto);
+
         jMenuBar2.add(jMenu5);
 
         jMenu6.setText("Fabricante");
-        jMenu6.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jMenu6MouseClicked(evt);
+
+        Button1Fabricante.setText("Get All");
+        Button1Fabricante.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                Button1FabricanteMouseReleased(evt);
             }
         });
+        jMenu6.add(Button1Fabricante);
+
+        Button2Fabricante.setText("Create");
+        Button2Fabricante.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                Button2FabricanteMouseReleased(evt);
+            }
+        });
+        jMenu6.add(Button2Fabricante);
+
+        Button3Fabricante.setText("Add Connection");
+        Button3Fabricante.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                Button3FabricanteMouseReleased(evt);
+            }
+        });
+        jMenu6.add(Button3Fabricante);
+
+        Button4Fabricante.setText("Delete");
+        Button4Fabricante.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                Button4FabricanteMouseReleased(evt);
+            }
+        });
+        jMenu6.add(Button4Fabricante);
+
         jMenuBar2.add(jMenu6);
 
         setJMenuBar(jMenuBar2);
@@ -178,21 +253,17 @@ public class MainFraime extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jMenu3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu3MouseClicked
+    private void Button1ClienteMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Button1ClienteMouseReleased
         // select * from cliente in jtextArea1
         List<Cliente> test = clContr.findClienteEntities();
         String list = "";
@@ -200,9 +271,9 @@ public class MainFraime extends javax.swing.JFrame {
             list += tmp.toString() + "\n";
         }
         jTextArea1.setText(list);
-    }//GEN-LAST:event_jMenu3MouseClicked
+    }//GEN-LAST:event_Button1ClienteMouseReleased
 
-    private void jMenu4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu4MouseClicked
+    private void Button1EmpresaMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Button1EmpresaMouseReleased
         // select * from empresa in jtextArea1
         List<Empresa> test = emContr.findEmpresaEntities();
         String list = "";
@@ -210,9 +281,9 @@ public class MainFraime extends javax.swing.JFrame {
             list += tmp.toString() + "\n";
         }
         jTextArea1.setText(list);
-    }//GEN-LAST:event_jMenu4MouseClicked
+    }//GEN-LAST:event_Button1EmpresaMouseReleased
 
-    private void jMenu5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu5MouseClicked
+    private void Button1ProductoMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Button1ProductoMouseReleased
         // select * from producto in jtextArea1
         List<Producto> test = prContr.findProductoEntities();
         String list = "";
@@ -220,9 +291,9 @@ public class MainFraime extends javax.swing.JFrame {
             list += tmp.toString() + "\n";
         }
         jTextArea1.setText(list);
-    }//GEN-LAST:event_jMenu5MouseClicked
+    }//GEN-LAST:event_Button1ProductoMouseReleased
 
-    private void jMenu6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu6MouseClicked
+    private void Button1FabricanteMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Button1FabricanteMouseReleased
         // select * from fabricante in jtextArea1
         List<Fabricante> test = fbContr.findFabricanteEntities();
         String list = "";
@@ -230,94 +301,260 @@ public class MainFraime extends javax.swing.JFrame {
             list += tmp.toString() + "\n";
         }
         jTextArea1.setText(list);
-    }//GEN-LAST:event_jMenu6MouseClicked
+    }//GEN-LAST:event_Button1FabricanteMouseReleased
 
-    private void jButton3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton3MouseClicked
-        String tableName = jTextField2.getText();
-        String values = jTextField1.getText();
-        String[] fields = values.split(",");
+    private void Button2ClienteMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Button2ClienteMouseReleased
+        // start creating frame Cliente
+        CreateFrame createFrame = new CreateFrame();
+        createFrame.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        createFrame.setVisible(true);
+        createFrame.setResizable(false);
+        createFrame.createCliente();
+        createFrame.clearAllTextFields();
 
-        try {
-            if (tableName.equalsIgnoreCase("fabricante")) {
-                fbContr.destroy(Integer.parseInt(fields[0]));
-            } else if (tableName.equalsIgnoreCase("producto")) {
-                prContr.destroy(Integer.parseInt(fields[0]));
-            } else if (tableName.equalsIgnoreCase("cliente")) {
-                clContr.destroy(Integer.parseInt(fields[0]));
-            } else if (tableName.equalsIgnoreCase("empresa")) {
-                emContr.destroy(Integer.parseInt(fields[0]));
-            } else {
-                jTextArea1.setText("No existe esta tabla");
-            }
-        } catch (IllegalOrphanException e) {
-            jTextArea1.setText(e.toString());
-        } catch (NonexistentEntityException e) {
-            jTextArea1.setText(e.toString());
-        } catch (NumberFormatException e) {
-            jTextArea1.setText(e.toString());
-        }
-
-
-    }//GEN-LAST:event_jButton3MouseClicked
-
-    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
-        String tableName = jTextField2.getText();
-        String values = jTextField1.getText();
-        String[] fields = values.split(",");
-        try {
-            if (tableName.equalsIgnoreCase("fabricante")) {
-                Fabricante fabricante = new Fabricante(Integer.parseInt(fields[0]), fields[1]);
-                fbContr.create(fabricante);
-            } else if (tableName.equalsIgnoreCase("producto")) {
-                Producto producto = new Producto(Integer.parseInt(fields[0]), Double.parseDouble(fields[1]), fields[2]);
-                prContr.create(producto);
-            } else if (tableName.equalsIgnoreCase("cliente")) {
-                Cliente cliente = new Cliente(Integer.parseInt(fields[0]), fields[1]);
+        createFrame.addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosed(WindowEvent e) {
+                String[] fields = createFrame.getText();
+                Cliente cliente = new Cliente(Integer.parseInt(fields[0]), fields[1], fields[2]);
+                jTextArea1.setText("Cliente creado \n" + cliente.toString());
                 clContr.create(cliente);
-            } else if (tableName.equalsIgnoreCase("empresa")) {
+            }
+        });
+    }//GEN-LAST:event_Button2ClienteMouseReleased
+
+    private void Button2EmpresaMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Button2EmpresaMouseReleased
+        // start creating frame Empresa
+        CreateFrame createFrame = new CreateFrame();
+        createFrame.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        createFrame.setVisible(true);
+        createFrame.setResizable(false);
+        createFrame.createEmpresa();
+        createFrame.clearAllTextFields();
+
+        createFrame.addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosed(WindowEvent e) {
+                String[] fields = createFrame.getText();
                 Empresa empresa = new Empresa(Integer.parseInt(fields[0]), fields[1]);
                 emContr.create(empresa);
-            } else {
-                jTextArea1.setText("No existe esta tabla");
+                jTextArea1.setText("Empresa creada \n" + emContr.findEmpresa(Integer.parseInt(fields[0])).toString());
+
             }
-        } catch (IllegalOrphanException e) {
-            jTextArea1.setText(e.toString());
-        } catch (NumberFormatException e) {
-            jTextArea1.setText(e.toString());
-        }
+        });
+    }//GEN-LAST:event_Button2EmpresaMouseReleased
 
-    }//GEN-LAST:event_jButton1MouseClicked
+    private void Button2ProductoMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Button2ProductoMouseReleased
+        // start creating frame Producto
+        CreateFrame createFrame = new CreateFrame();
+        createFrame.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        createFrame.setVisible(true);
+        createFrame.setResizable(false);
+        createFrame.createProducto();
+        createFrame.clearAllTextFields();
 
-    private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
-        String tableName = jTextField2.getText();
-        String values = jTextField1.getText();
-        String[] fields = values.split(",");
-        try {
-            if (tableName.equalsIgnoreCase("fabricante")) {
-                Fabricante fabricante = new Fabricante(Integer.parseInt(fields[0]), fields[1]);
-                fbContr.edit(fabricante);
-            } else if (tableName.equalsIgnoreCase("producto")) {
+        createFrame.addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosed(WindowEvent e) {
+                String[] fields = createFrame.getText();
                 Producto producto = new Producto(Integer.parseInt(fields[0]), Double.parseDouble(fields[1]), fields[2]);
-                prContr.edit(producto);
-            } else if (tableName.equalsIgnoreCase("cliente")) {
-                Cliente cliente = new Cliente(Integer.parseInt(fields[0]), fields[1]);
-                clContr.edit(cliente);
-            } else if (tableName.equalsIgnoreCase("empresa")) {
-                Empresa empresa = new Empresa(Integer.parseInt(fields[0]), fields[1]);
-                emContr.edit(empresa);
-            } else {
-                jTextArea1.setText("No existe esta tabla");
+                jTextArea1.setText("Producto creado \n" + producto.toString());
+                prContr.create(producto);
             }
-        } catch (IllegalOrphanException e) {
-            jTextArea1.setText(e.toString());
-        } catch (NumberFormatException e) {
-            jTextArea1.setText(e.toString());
-        } catch (NonexistentEntityException e) {
-            jTextArea1.setText(e.toString());
-        } catch (Exception e) {
-            jTextArea1.setText(e.toString());
-        }
-    }//GEN-LAST:event_jButton2MouseClicked
+        });
+    }//GEN-LAST:event_Button2ProductoMouseReleased
+
+    private void Button2FabricanteMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Button2FabricanteMouseReleased
+        // start creating frame Fabricante
+        CreateFrame createFrame = new CreateFrame();
+        createFrame.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        createFrame.setVisible(true);
+        createFrame.setResizable(false);
+        createFrame.createFabricante();
+        createFrame.clearAllTextFields();
+
+        createFrame.addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosed(WindowEvent e) {
+                String[] fields = createFrame.getText();
+                Fabricante fabricante = new Fabricante(Integer.parseInt(fields[0]), fields[1]);
+                jTextArea1.setText("Fabricante creado \n" + fabricante.toString());
+                fbContr.create(fabricante);
+            }
+        });
+    }//GEN-LAST:event_Button2FabricanteMouseReleased
+
+    private void Button3ClienteMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Button3ClienteMouseReleased
+        // start add frame Cliente
+        CreatingEntities cr = new CreatingEntities();
+        AddFrame addFrame = new AddFrame();
+        addFrame.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        addFrame.setVisible(true);
+        addFrame.setResizable(false);
+        addFrame.addCliente();
+        addFrame.clearAllTextFields();
+
+        addFrame.addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosed(WindowEvent e) {
+                Integer[] fields = addFrame.getText();
+                cr.addClienteEmpresa(clContr.findCliente(fields[0]), emContr.findEmpresa(fields[1]));
+                jTextArea1.setText("Connecion creada");
+            }
+        });
+    }//GEN-LAST:event_Button3ClienteMouseReleased
+
+    private void Button3EmpresaMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Button3EmpresaMouseReleased
+        // start add frame Empresa
+        CreatingEntities cr = new CreatingEntities();
+        AddFrame addFrame = new AddFrame();
+        addFrame.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        addFrame.setVisible(true);
+        addFrame.setResizable(false);
+        addFrame.addEmpresa();
+        addFrame.clearAllTextFields();
+
+        addFrame.addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosed(WindowEvent e) {
+                Integer[] fields = addFrame.getText();
+                cr.addClienteEmpresa(clContr.findCliente(fields[0]), emContr.findEmpresa(fields[1]));
+                jTextArea1.setText("Connecion creada");
+            }
+        });
+    }//GEN-LAST:event_Button3EmpresaMouseReleased
+
+    private void Button3ProductoMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Button3ProductoMouseReleased
+        // start add frame Prodcuto
+        CreatingEntities cr = new CreatingEntities();
+        AddFrame addFrame = new AddFrame();
+        addFrame.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        addFrame.setVisible(true);
+        addFrame.setResizable(false);
+        addFrame.addProducto();
+        addFrame.clearAllTextFields();
+
+        addFrame.addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosed(WindowEvent e) {
+                Integer[] fields = addFrame.getText();
+                cr.addEmpresaProducto(emContr.findEmpresa(fields[1]), prContr.findProducto(fields[0]));
+                jTextArea1.setText("Connecion creada");
+            }
+        });
+    }//GEN-LAST:event_Button3ProductoMouseReleased
+
+    private void Button3FabricanteMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Button3FabricanteMouseReleased
+        // start add frame Fabricante
+        CreatingEntities cr = new CreatingEntities();
+        AddFrame addFrame = new AddFrame();
+        addFrame.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        addFrame.setVisible(true);
+        addFrame.setResizable(false);
+        addFrame.addFabricante();
+        addFrame.clearAllTextFields();
+
+        addFrame.addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosed(WindowEvent e) {
+                Integer[] fields = addFrame.getText();
+                cr.addProductoFabricante(fbContr.findFabricante(fields[0]), prContr.findProducto(fields[1]));
+                jTextArea1.setText("Connecion creada");
+            }
+        });
+    }//GEN-LAST:event_Button3FabricanteMouseReleased
+
+    private void Button4ClienteMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Button4ClienteMouseReleased
+        // start delete frame Cliente
+        DeleteFrame delFrame = new DeleteFrame();
+        delFrame.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        delFrame.setVisible(true);
+        delFrame.setResizable(false);
+        delFrame.clearAllTextFields();
+        delFrame.clearAllTextFields();
+
+        delFrame.addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosed(WindowEvent e) {
+                int id = delFrame.getText();
+                try {
+                    clContr.destroy(id);
+                    jTextArea1.setText("Objeto eliminado");
+                } catch (NonexistentEntityException ex) {
+                    jTextArea1.setText(ex.toString());
+                }
+            }
+        });
+    }//GEN-LAST:event_Button4ClienteMouseReleased
+
+    private void Button4EmpresaMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Button4EmpresaMouseReleased
+        // start delete frame Empresa
+        DeleteFrame delFrame = new DeleteFrame();
+        delFrame.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        delFrame.setVisible(true);
+        delFrame.setResizable(false);
+        delFrame.clearAllTextFields();
+        delFrame.clearAllTextFields();
+
+        delFrame.addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosed(WindowEvent e) {
+                int id = delFrame.getText();
+                try {
+                    emContr.destroy(id);
+                    jTextArea1.setText("Objeto eliminado");
+                } catch (NonexistentEntityException ex) {
+                    jTextArea1.setText(ex.toString());
+                }
+            }
+        });
+    }//GEN-LAST:event_Button4EmpresaMouseReleased
+
+    private void Button4ProductoMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Button4ProductoMouseReleased
+        // start delete frame Producto
+        DeleteFrame delFrame = new DeleteFrame();
+        delFrame.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        delFrame.setVisible(true);
+        delFrame.setResizable(false);
+        delFrame.clearAllTextFields();
+        delFrame.clearAllTextFields();
+
+        delFrame.addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosed(WindowEvent e) {
+                int id = delFrame.getText();
+                try {
+                    prContr.destroy(id);
+                    jTextArea1.setText("Objeto eliminado");
+                } catch (NonexistentEntityException ex) {
+                    jTextArea1.setText(ex.toString());
+                }
+            }
+        });
+    }//GEN-LAST:event_Button4ProductoMouseReleased
+
+    private void Button4FabricanteMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Button4FabricanteMouseReleased
+        // start delete frame Fabricante
+        DeleteFrame delFrame = new DeleteFrame();
+        delFrame.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        delFrame.setVisible(true);
+        delFrame.setResizable(false);
+        delFrame.clearAllTextFields();
+        delFrame.clearAllTextFields();
+
+        delFrame.addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosed(WindowEvent e) {
+                int id = delFrame.getText();
+                try {
+                    fbContr.destroy(id);
+                    jTextArea1.setText("Objeto eliminado");
+                } catch (NonexistentEntityException ex) {
+                    jTextArea1.setText(ex.toString());
+                }
+            }
+        });
+    }//GEN-LAST:event_Button4FabricanteMouseReleased
 
     /**
      * @param args the command line arguments
@@ -356,19 +593,32 @@ public class MainFraime extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
+    private javax.swing.JMenuItem Button1Cliente;
+    private javax.swing.JMenuItem Button1Empresa;
+    private javax.swing.JMenuItem Button1Fabricante;
+    private javax.swing.JMenuItem Button1Producto;
+    private javax.swing.JMenuItem Button2Cliente;
+    private javax.swing.JMenuItem Button2Empresa;
+    private javax.swing.JMenuItem Button2Fabricante;
+    private javax.swing.JMenuItem Button2Producto;
+    private javax.swing.JMenuItem Button3Cliente;
+    private javax.swing.JMenuItem Button3Empresa;
+    private javax.swing.JMenuItem Button3Fabricante;
+    private javax.swing.JMenuItem Button3Producto;
+    private javax.swing.JMenuItem Button4Cliente;
+    private javax.swing.JMenuItem Button4Empresa;
+    private javax.swing.JMenuItem Button4Fabricante;
+    private javax.swing.JMenuItem Button4Producto;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenu jMenu5;
     private javax.swing.JMenu jMenu6;
     private javax.swing.JMenuBar jMenuBar2;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
     // End of variables declaration//GEN-END:variables
 }

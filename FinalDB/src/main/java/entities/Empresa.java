@@ -43,7 +43,7 @@ public class Empresa implements Serializable {
     @ManyToMany(mappedBy = "empresaCollection")
     private Collection<Cliente> clienteCollection;
     @JoinColumn(name = "id_producto", referencedColumnName = "id_producto")
-    @ManyToOne(optional = false)
+    @ManyToOne
     private Producto idProducto;
 
     public Empresa() {
@@ -82,6 +82,10 @@ public class Empresa implements Serializable {
         this.clienteCollection = clienteCollection;
     }
 
+    public void addCliente(Cliente cliente) {
+        clienteCollection.add(cliente);
+    }
+
     public Producto getIdProducto() {
         return idProducto;
     }
@@ -112,7 +116,28 @@ public class Empresa implements Serializable {
 
     @Override
     public String toString() {
-        return "entities.Empresa[ idEmpresa=" + idEmpresa + " ]";
+        //logic to print correctly
+        if (idProducto == null && clienteCollection.size() != 0) {
+            return "idEmpresa=" + idEmpresa + ", nombre=" + nombre + ", ID de clientes connectados: " + printCollection();
+        }
+        if (clienteCollection.size() != 0 && idProducto != null) {
+            return "idEmpresa=" + idEmpresa + ", nombre=" + nombre + ", idProducto=" + idProducto.getIdProducto();
+        }
+        if (clienteCollection.size() == 0 && idProducto == null) {
+            return "idEmpresa=" + idEmpresa + ", nombre=" + nombre;
+        }
+        return "idEmpresa=" + idEmpresa + ", nombre=" + nombre + ", idProducto=" + idProducto.getIdProducto() + ", ID de clientes connectados: " + printCollection();
     }
-    
+
+    public String printCollection() {
+        String print = "";
+        for (Cliente cl : clienteCollection) {
+            print += cl.getIdCliente() + ", ";
+        }
+        try {
+            print = print.substring(0, print.length() - 2);
+        } catch (IndexOutOfBoundsException e) {}
+        return print;
+    }
+
 }

@@ -7,7 +7,6 @@ package entities;
 import java.io.Serializable;
 import java.util.Collection;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -46,9 +45,9 @@ public class Producto implements Serializable {
     @Column(name = "nombre")
     private String nombre;
     @JoinColumn(name = "id_fabricante", referencedColumnName = "id_fabricante")
-    @OneToOne(optional = false)
+    @OneToOne
     private Fabricante idFabricante;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idProducto")
+    @OneToMany(mappedBy = "idProducto")
     private Collection<Empresa> empresaCollection;
 
     public Producto() {
@@ -104,6 +103,10 @@ public class Producto implements Serializable {
         this.empresaCollection = empresaCollection;
     }
 
+    public void addEmpresa(Empresa empresa) {
+        empresaCollection.add(empresa);
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -126,7 +129,12 @@ public class Producto implements Serializable {
 
     @Override
     public String toString() {
-        return  "idProducto=" + idProducto + ", precio=" + precio + ", nombre=" + nombre + ", idFabricante=" + idFabricante.getIdFabricante() + ", empresaCollection=" + empresaCollection;
+        //logic to print correctly
+        if (idFabricante == null) {
+            return "idProducto=" + idProducto + ", precio=" + precio + ", nombre=" + nombre;
+        }
+
+        return "idProducto=" + idProducto + ", precio=" + precio + ", nombre=" + nombre + ", idFabricante=" + idFabricante.getIdFabricante();
     }
 
 }

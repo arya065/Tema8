@@ -34,9 +34,6 @@ public class VehiculoJpaController implements Serializable {
     }
 
     public void create(Vehiculo vehiculo) {
-        // чтобы создать vehiculo 
-        // не нужно добавлять ренту 
-        // но чтобы добавить ренту, нужно занести её в список рент в классе vehiculo
         if (vehiculo.getAlquilerList() == null) {
             vehiculo.setAlquilerList(new ArrayList<Alquiler>());
         }

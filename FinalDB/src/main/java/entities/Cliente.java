@@ -56,9 +56,10 @@ public class Cliente implements Serializable {
         this.idCliente = idCliente;
     }
 
-    public Cliente(Integer idCliente, String nombre) {
+    public Cliente(Integer idCliente, String nombre, String tel) {
         this.idCliente = idCliente;
         this.nombre = nombre;
+        this.tel = tel;
     }
 
     public Integer getIdCliente() {
@@ -93,6 +94,10 @@ public class Cliente implements Serializable {
         this.empresaCollection = empresaCollection;
     }
 
+    public void addEmpresa(Empresa empresa) {
+        empresaCollection.add(empresa);
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -115,7 +120,21 @@ public class Cliente implements Serializable {
 
     @Override
     public String toString() {
-        return "entities.Cliente[ idCliente=" + idCliente + " ]";
+        //login to print correctly
+        if (empresaCollection == null) {
+            return "idCliente=" + idCliente + ", nombre=" + nombre + ", tel=" + tel;
+        }
+        return "idCliente=" + idCliente + ", nombre=" + nombre + ", tel=" + tel + ", ID de empresas conectadas: " + printCollection();
     }
-    
+
+    public String printCollection() {
+        String print = "";
+        for (Empresa em : empresaCollection) {
+            print += em.getIdEmpresa() + ", ";
+        }
+        try {
+            print = print.substring(0, print.length() - 2);
+        } catch (IndexOutOfBoundsException e){}
+        return print;
+    }
 }

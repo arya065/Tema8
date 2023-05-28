@@ -17,7 +17,6 @@ import java.util.Collection;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import jpaControllers.exceptions.IllegalOrphanException;
 import jpaControllers.exceptions.NonexistentEntityException;
 
 /**
@@ -35,23 +34,9 @@ public class ProductoJpaController implements Serializable {
         return emf.createEntityManager();
     }
 
-    public void create(Producto producto) throws IllegalOrphanException {
+    public void create(Producto producto) {
         if (producto.getEmpresaCollection() == null) {
             producto.setEmpresaCollection(new ArrayList<Empresa>());
-        }
-        List<String> illegalOrphanMessages = null;
-        Fabricante idFabricanteOrphanCheck = producto.getIdFabricante();
-        if (idFabricanteOrphanCheck != null) {
-            Producto oldProductoOfIdFabricante = idFabricanteOrphanCheck.getProducto();
-            if (oldProductoOfIdFabricante != null) {
-                if (illegalOrphanMessages == null) {
-                    illegalOrphanMessages = new ArrayList<String>();
-                }
-                illegalOrphanMessages.add("The Fabricante " + idFabricanteOrphanCheck + " already has an item of type Producto whose idFabricante column cannot be null. Please make another selection for the idFabricante field.");
-            }
-        }
-        if (illegalOrphanMessages != null) {
-            throw new IllegalOrphanException(illegalOrphanMessages);
         }
         EntityManager em = null;
         try {
@@ -70,6 +55,11 @@ public class ProductoJpaController implements Serializable {
             producto.setEmpresaCollection(attachedEmpresaCollection);
             em.persist(producto);
             if (idFabricante != null) {
+                Producto oldProductoOfIdFabricante = idFabricante.getProducto();
+                if (oldProductoOfIdFabricante != null) {
+                    oldProductoOfIdFabricante.setIdFabricante(null);
+                    oldProductoOfIdFabricante = em.merge(oldProductoOfIdFabricante);
+                }
                 idFabricante.setProducto(producto);
                 idFabricante = em.merge(idFabricante);
             }
@@ -90,7 +80,7 @@ public class ProductoJpaController implements Serializable {
         }
     }
 
-    public void edit(Producto producto) throws IllegalOrphanException, NonexistentEntityException, Exception {
+    public void edit(Producto producto) throws NonexistentEntityException, Exception {
         EntityManager em = null;
         try {
             em = getEntityManager();
@@ -100,27 +90,6 @@ public class ProductoJpaController implements Serializable {
             Fabricante idFabricanteNew = producto.getIdFabricante();
             Collection<Empresa> empresaCollectionOld = persistentProducto.getEmpresaCollection();
             Collection<Empresa> empresaCollectionNew = producto.getEmpresaCollection();
-            List<String> illegalOrphanMessages = null;
-            if (idFabricanteNew != null && !idFabricanteNew.equals(idFabricanteOld)) {
-                Producto oldProductoOfIdFabricante = idFabricanteNew.getProducto();
-                if (oldProductoOfIdFabricante != null) {
-                    if (illegalOrphanMessages == null) {
-                        illegalOrphanMessages = new ArrayList<String>();
-                    }
-                    illegalOrphanMessages.add("The Fabricante " + idFabricanteNew + " already has an item of type Producto whose idFabricante column cannot be null. Please make another selection for the idFabricante field.");
-                }
-            }
-            for (Empresa empresaCollectionOldEmpresa : empresaCollectionOld) {
-                if (!empresaCollectionNew.contains(empresaCollectionOldEmpresa)) {
-                    if (illegalOrphanMessages == null) {
-                        illegalOrphanMessages = new ArrayList<String>();
-                    }
-                    illegalOrphanMessages.add("You must retain Empresa " + empresaCollectionOldEmpresa + " since its idProducto field is not nullable.");
-                }
-            }
-            if (illegalOrphanMessages != null) {
-                throw new IllegalOrphanException(illegalOrphanMessages);
-            }
             if (idFabricanteNew != null) {
                 idFabricanteNew = em.getReference(idFabricanteNew.getClass(), idFabricanteNew.getIdFabricante());
                 producto.setIdFabricante(idFabricanteNew);
@@ -138,8 +107,19 @@ public class ProductoJpaController implements Serializable {
                 idFabricanteOld = em.merge(idFabricanteOld);
             }
             if (idFabricanteNew != null && !idFabricanteNew.equals(idFabricanteOld)) {
+                Producto oldProductoOfIdFabricante = idFabricanteNew.getProducto();
+                if (oldProductoOfIdFabricante != null) {
+                    oldProductoOfIdFabricante.setIdFabricante(null);
+                    oldProductoOfIdFabricante = em.merge(oldProductoOfIdFabricante);
+                }
                 idFabricanteNew.setProducto(producto);
                 idFabricanteNew = em.merge(idFabricanteNew);
+            }
+            for (Empresa empresaCollectionOldEmpresa : empresaCollectionOld) {
+                if (!empresaCollectionNew.contains(empresaCollectionOldEmpresa)) {
+                    empresaCollectionOldEmpresa.setIdProducto(null);
+                    empresaCollectionOldEmpresa = em.merge(empresaCollectionOldEmpresa);
+                }
             }
             for (Empresa empresaCollectionNewEmpresa : empresaCollectionNew) {
                 if (!empresaCollectionOld.contains(empresaCollectionNewEmpresa)) {
@@ -169,7 +149,7 @@ public class ProductoJpaController implements Serializable {
         }
     }
 
-    public void destroy(Integer id) throws IllegalOrphanException, NonexistentEntityException {
+    public void destroy(Integer id) throws NonexistentEntityException {
         EntityManager em = null;
         try {
             em = getEntityManager();
@@ -181,21 +161,15 @@ public class ProductoJpaController implements Serializable {
             } catch (EntityNotFoundException enfe) {
                 throw new NonexistentEntityException("The producto with id " + id + " no longer exists.", enfe);
             }
-            List<String> illegalOrphanMessages = null;
-            Collection<Empresa> empresaCollectionOrphanCheck = producto.getEmpresaCollection();
-            for (Empresa empresaCollectionOrphanCheckEmpresa : empresaCollectionOrphanCheck) {
-                if (illegalOrphanMessages == null) {
-                    illegalOrphanMessages = new ArrayList<String>();
-                }
-                illegalOrphanMessages.add("This Producto (" + producto + ") cannot be destroyed since the Empresa " + empresaCollectionOrphanCheckEmpresa + " in its empresaCollection field has a non-nullable idProducto field.");
-            }
-            if (illegalOrphanMessages != null) {
-                throw new IllegalOrphanException(illegalOrphanMessages);
-            }
             Fabricante idFabricante = producto.getIdFabricante();
             if (idFabricante != null) {
                 idFabricante.setProducto(null);
                 idFabricante = em.merge(idFabricante);
+            }
+            Collection<Empresa> empresaCollection = producto.getEmpresaCollection();
+            for (Empresa empresaCollectionEmpresa : empresaCollection) {
+                empresaCollectionEmpresa.setIdProducto(null);
+                empresaCollectionEmpresa = em.merge(empresaCollectionEmpresa);
             }
             em.remove(producto);
             em.getTransaction().commit();

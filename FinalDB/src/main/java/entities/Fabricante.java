@@ -6,7 +6,6 @@ package entities;
 
 import java.io.Serializable;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -38,7 +37,7 @@ public class Fabricante implements Serializable {
     @Basic(optional = false)
     @Column(name = "nombre")
     private String nombre;
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "idFabricante")
+    @OneToOne(mappedBy = "idFabricante")
     private Producto producto;
 
     public Fabricante() {
@@ -99,9 +98,11 @@ public class Fabricante implements Serializable {
 
     @Override
     public String toString() {
-        return "idFabricante=" + idFabricante ;
+        //logic to print correctly
+        if (producto == null) {
+            return "idFabricante=" + idFabricante + ", nombre=" + nombre;
+        }
+        return "idFabricante=" + idFabricante + ", nombre=" + nombre + ", producto=" + producto.getIdProducto();
     }
 
-    
-    
 }

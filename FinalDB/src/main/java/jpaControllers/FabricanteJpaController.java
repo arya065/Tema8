@@ -11,11 +11,9 @@ import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import entities.Producto;
-import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import jpaControllers.exceptions.IllegalOrphanException;
 import jpaControllers.exceptions.NonexistentEntityException;
 
 /**
@@ -61,7 +59,7 @@ public class FabricanteJpaController implements Serializable {
         }
     }
 
-    public void edit(Fabricante fabricante) throws IllegalOrphanException, NonexistentEntityException, Exception {
+    public void edit(Fabricante fabricante) throws NonexistentEntityException, Exception {
         EntityManager em = null;
         try {
             em = getEntityManager();
@@ -69,21 +67,15 @@ public class FabricanteJpaController implements Serializable {
             Fabricante persistentFabricante = em.find(Fabricante.class, fabricante.getIdFabricante());
             Producto productoOld = persistentFabricante.getProducto();
             Producto productoNew = fabricante.getProducto();
-            List<String> illegalOrphanMessages = null;
-            if (productoOld != null && !productoOld.equals(productoNew)) {
-                if (illegalOrphanMessages == null) {
-                    illegalOrphanMessages = new ArrayList<String>();
-                }
-                illegalOrphanMessages.add("You must retain Producto " + productoOld + " since its idFabricante field is not nullable.");
-            }
-            if (illegalOrphanMessages != null) {
-                throw new IllegalOrphanException(illegalOrphanMessages);
-            }
             if (productoNew != null) {
                 productoNew = em.getReference(productoNew.getClass(), productoNew.getIdProducto());
                 fabricante.setProducto(productoNew);
             }
             fabricante = em.merge(fabricante);
+            if (productoOld != null && !productoOld.equals(productoNew)) {
+                productoOld.setIdFabricante(null);
+                productoOld = em.merge(productoOld);
+            }
             if (productoNew != null && !productoNew.equals(productoOld)) {
                 Fabricante oldIdFabricanteOfProducto = productoNew.getIdFabricante();
                 if (oldIdFabricanteOfProducto != null) {
@@ -110,7 +102,7 @@ public class FabricanteJpaController implements Serializable {
         }
     }
 
-    public void destroy(Integer id) throws IllegalOrphanException, NonexistentEntityException {
+    public void destroy(Integer id) throws NonexistentEntityException {
         EntityManager em = null;
         try {
             em = getEntityManager();
@@ -122,16 +114,10 @@ public class FabricanteJpaController implements Serializable {
             } catch (EntityNotFoundException enfe) {
                 throw new NonexistentEntityException("The fabricante with id " + id + " no longer exists.", enfe);
             }
-            List<String> illegalOrphanMessages = null;
-            Producto productoOrphanCheck = fabricante.getProducto();
-            if (productoOrphanCheck != null) {
-                if (illegalOrphanMessages == null) {
-                    illegalOrphanMessages = new ArrayList<String>();
-                }
-                illegalOrphanMessages.add("This Fabricante (" + fabricante + ") cannot be destroyed since the Producto " + productoOrphanCheck + " in its producto field has a non-nullable idFabricante field.");
-            }
-            if (illegalOrphanMessages != null) {
-                throw new IllegalOrphanException(illegalOrphanMessages);
+            Producto producto = fabricante.getProducto();
+            if (producto != null) {
+                producto.setIdFabricante(null);
+                producto = em.merge(producto);
             }
             em.remove(fabricante);
             em.getTransaction().commit();
