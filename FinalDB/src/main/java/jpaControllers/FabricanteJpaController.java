@@ -31,6 +31,12 @@ public class FabricanteJpaController implements Serializable {
         return emf.createEntityManager();
     }
 
+    public void create(List<Fabricante> list) {
+        for (Fabricante fb : list) {
+            create(fb);
+        }
+    }
+
     public void create(Fabricante fabricante) {
         EntityManager em = null;
         try {

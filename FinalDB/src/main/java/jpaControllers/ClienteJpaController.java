@@ -33,6 +33,12 @@ public class ClienteJpaController implements Serializable {
         return emf.createEntityManager();
     }
 
+    public void create(List<Cliente> list) {
+        for (Cliente cl : list) {
+            create(cl);
+        }
+    }
+
     public void create(Cliente cliente) {
         if (cliente.getEmpresaCollection() == null) {
             cliente.setEmpresaCollection(new ArrayList<Empresa>());
@@ -130,10 +136,10 @@ public class ClienteJpaController implements Serializable {
             }
         }
     }
-    
+
     public Cliente getLastCliente() {
         List<Cliente> tmp = findClienteEntities();
-        return tmp.get(tmp.size()-1);
+        return tmp.get(tmp.size() - 1);
     }
 
     public List<Cliente> findClienteEntities() {
@@ -181,5 +187,5 @@ public class ClienteJpaController implements Serializable {
             em.close();
         }
     }
-    
+
 }

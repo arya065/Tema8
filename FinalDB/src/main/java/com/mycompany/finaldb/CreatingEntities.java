@@ -2,9 +2,7 @@ package com.mycompany.finaldb;
 
 import entities.*;
 import jpaControllers.*;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-import jpaControllers.exceptions.IllegalOrphanException;
+import javax.persistence.*;
 
 public class CreatingEntities {
 

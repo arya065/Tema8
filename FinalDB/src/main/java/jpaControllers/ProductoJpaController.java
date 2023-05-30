@@ -34,6 +34,12 @@ public class ProductoJpaController implements Serializable {
         return emf.createEntityManager();
     }
 
+    public void create(List<Producto> list) {
+        for (Producto pr : list) {
+            create(pr);
+        }
+    }
+
     public void create(Producto producto) {
         if (producto.getEmpresaCollection() == null) {
             producto.setEmpresaCollection(new ArrayList<Empresa>());

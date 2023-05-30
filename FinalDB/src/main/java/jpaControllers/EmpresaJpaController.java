@@ -34,6 +34,12 @@ public class EmpresaJpaController implements Serializable {
         return emf.createEntityManager();
     }
 
+    public void create(List<Empresa> list) {
+        for (Empresa em : list) {
+            create(em);
+        }
+    }
+
     public void create(Empresa empresa) {
         if (empresa.getClienteCollection() == null) {
             empresa.setClienteCollection(new ArrayList<Cliente>());
@@ -162,7 +168,7 @@ public class EmpresaJpaController implements Serializable {
 
     public Empresa getLastEmpresa() {
         List<Empresa> tmp = findEmpresaEntities();
-        return tmp.get(tmp.size()-1);
+        return tmp.get(tmp.size() - 1);
     }
 
     public List<Empresa> findEmpresaEntities() {

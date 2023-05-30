@@ -1,0 +1,6 @@
+idFabricante=1, nombre=fabricante1, producto=1
+idFabricante=2, nombre=fabricante2, producto=2
+idFabricante=3, nombre=fabricante3, producto=3
+idFabricante=4, nombre=fabricante1
+idFabricante=5, nombre=fabricante2
+idFabricante=6, nombre=fabricante3
