@@ -120,7 +120,7 @@ public class Empresa implements Serializable {
         if (idProducto == null && clienteCollection.size() != 0) {
             return "idEmpresa=" + idEmpresa + ", nombre=" + nombre + ", ID de clientes connectados: " + printCollection();
         }
-        if (clienteCollection.size() != 0 && idProducto != null) {
+        if (clienteCollection.size() == 0 && idProducto != null) {
             return "idEmpresa=" + idEmpresa + ", nombre=" + nombre + ", idProducto=" + idProducto.getIdProducto();
         }
         if (clienteCollection.size() == 0 && idProducto == null) {

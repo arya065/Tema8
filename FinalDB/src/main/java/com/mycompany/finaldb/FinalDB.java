@@ -9,7 +9,7 @@ import jpaControllers.*;
 public class FinalDB {
 
     public static void main(String[] args) {
-
+        
         initComponents();
     }
 
@@ -35,27 +35,27 @@ public class FinalDB {
     public static void createEntitiesDB(ClienteJpaController clContr, EmpresaJpaController emContr, FabricanteJpaController fbContr, ProductoJpaController prContr) {
         CreatingEntities creator = new CreatingEntities();
 
-        //create fabricante
+        //create fabricantes
         creator.createFabricante(1, "fabricante1");
         creator.createFabricante(2, "fabricante2");
         creator.createFabricante(3, "fabricante3");
         
-        //create producto
+        //create productos
         creator.createProducto(1, 1.0, "producto1" );
         creator.createProducto(2, 2.0, "producto2");
         creator.createProducto(3, 3.0, "producto3");
 
-        //create cliente
+        //create clientes
         creator.createCliente(1, "cliente1", "111111111");
         creator.createCliente(2, "cliente2", "222222222");
         creator.createCliente(3, "cliente3", "333333333");
 
-        //create empresa
+        //create empresas
         creator.createEmpresa(1, "empresa1");
         creator.createEmpresa(2, "empresa2");
         creator.createEmpresa(3, "empresa3");
 
-        //make entities
+        //make relations between entities
         creator.addProductoFabricante(fbContr.findFabricante(1), prContr.findProducto(1));
         creator.addProductoFabricante(fbContr.findFabricante(2), prContr.findProducto(2));
         creator.addProductoFabricante(fbContr.findFabricante(3), prContr.findProducto(3));

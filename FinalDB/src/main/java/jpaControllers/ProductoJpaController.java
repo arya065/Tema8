@@ -180,6 +180,11 @@ public class ProductoJpaController implements Serializable {
         }
     }
 
+    public Producto getLastProducto() {
+        List<Producto> tmp = findProductoEntities();
+        return tmp.get(tmp.size() - 1);
+    }
+
     public List<Producto> findProductoEntities() {
         return findProductoEntities(true, -1, -1);
     }
@@ -225,5 +230,5 @@ public class ProductoJpaController implements Serializable {
             em.close();
         }
     }
-    
+
 }

@@ -316,9 +316,9 @@ public class MainFraime extends javax.swing.JFrame {
             @Override
             public void windowClosed(WindowEvent e) {
                 String[] fields = createFrame.getText();
-                Cliente cliente = new Cliente(Integer.parseInt(fields[0]), fields[1], fields[2]);
-                jTextArea1.setText("Cliente creado \n" + cliente.toString());
+                Cliente cliente = new Cliente(1, fields[1], fields[2]);
                 clContr.create(cliente);
+                jTextArea1.setText("ID de Cliente: " + clContr.getLastCliente().getIdCliente());
             }
         });
     }//GEN-LAST:event_Button2ClienteMouseReleased
@@ -336,9 +336,9 @@ public class MainFraime extends javax.swing.JFrame {
             @Override
             public void windowClosed(WindowEvent e) {
                 String[] fields = createFrame.getText();
-                Empresa empresa = new Empresa(Integer.parseInt(fields[0]), fields[1]);
+                Empresa empresa = new Empresa(1, fields[1]);
                 emContr.create(empresa);
-                jTextArea1.setText("Empresa creada \n" + emContr.findEmpresa(Integer.parseInt(fields[0])).toString());
+                jTextArea1.setText("ID de empresa: " + emContr.getLastEmpresa().getIdEmpresa());
 
             }
         });
@@ -357,9 +357,9 @@ public class MainFraime extends javax.swing.JFrame {
             @Override
             public void windowClosed(WindowEvent e) {
                 String[] fields = createFrame.getText();
-                Producto producto = new Producto(Integer.parseInt(fields[0]), Double.parseDouble(fields[1]), fields[2]);
-                jTextArea1.setText("Producto creado \n" + producto.toString());
+                Producto producto = new Producto(1, Double.parseDouble(fields[1]), fields[2]);
                 prContr.create(producto);
+                jTextArea1.setText("ID de Producto: " + prContr.getLastProducto().getIdProducto());
             }
         });
     }//GEN-LAST:event_Button2ProductoMouseReleased
@@ -377,9 +377,9 @@ public class MainFraime extends javax.swing.JFrame {
             @Override
             public void windowClosed(WindowEvent e) {
                 String[] fields = createFrame.getText();
-                Fabricante fabricante = new Fabricante(Integer.parseInt(fields[0]), fields[1]);
-                jTextArea1.setText("Fabricante creado \n" + fabricante.toString());
+                Fabricante fabricante = new Fabricante(1, fields[1]);
                 fbContr.create(fabricante);
+                jTextArea1.setText("ID de Fabricante: " + fbContr.getLastFabricante().getIdFabricante());
             }
         });
     }//GEN-LAST:event_Button2FabricanteMouseReleased

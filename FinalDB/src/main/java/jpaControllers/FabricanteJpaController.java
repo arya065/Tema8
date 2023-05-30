@@ -128,6 +128,11 @@ public class FabricanteJpaController implements Serializable {
         }
     }
 
+    public Fabricante getLastFabricante() {
+        List<Fabricante> tmp = findFabricanteEntities();
+        return tmp.get(tmp.size() - 1);
+    }
+
     public List<Fabricante> findFabricanteEntities() {
         return findFabricanteEntities(true, -1, -1);
     }
@@ -173,5 +178,5 @@ public class FabricanteJpaController implements Serializable {
             em.close();
         }
     }
-    
+
 }

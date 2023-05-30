@@ -130,6 +130,11 @@ public class ClienteJpaController implements Serializable {
             }
         }
     }
+    
+    public Cliente getLastCliente() {
+        List<Cliente> tmp = findClienteEntities();
+        return tmp.get(tmp.size()-1);
+    }
 
     public List<Cliente> findClienteEntities() {
         return findClienteEntities(true, -1, -1);

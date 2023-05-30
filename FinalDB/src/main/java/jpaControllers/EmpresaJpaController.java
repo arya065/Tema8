@@ -160,6 +160,11 @@ public class EmpresaJpaController implements Serializable {
         }
     }
 
+    public Empresa getLastEmpresa() {
+        List<Empresa> tmp = findEmpresaEntities();
+        return tmp.get(tmp.size()-1);
+    }
+
     public List<Empresa> findEmpresaEntities() {
         return findEmpresaEntities(true, -1, -1);
     }
@@ -205,5 +210,5 @@ public class EmpresaJpaController implements Serializable {
             em.close();
         }
     }
-    
+
 }
