@@ -1,7 +1,6 @@
 package com.mycompany.finaldb;
 
-import backupUtils.CreateCopy;
-import backupUtils.UseBackUp;
+import backupUtils.*;
 import entities.*;
 import java.io.IOException;
 import javax.persistence.EntityManagerFactory;
@@ -26,10 +25,12 @@ public class FinalDB {
         ProductoJpaController prContr = new ProductoJpaController(factory);
 
         int confirm = askBackUp();
-        //класс useBackUp и его метод 
+
+        //использовать backup
         if (confirm == 0) {
-            UseBackUp backup = new UseBackUp(clContr, emContr, fbContr, prContr);
-            
+            BackUp backup = new BackUp(clContr, emContr, fbContr, prContr);
+
+            // не использовать и создать дефолтную БД
         } else if (confirm == 1) {
             //options of frame
             MainFraime frame = new MainFraime(clContr, emContr, fbContr, prContr);
@@ -42,8 +43,8 @@ public class FinalDB {
             createEntitiesDB(clContr, emContr, fbContr, prContr);
         }
 
-        CreateCopy copy = new CreateCopy(clContr, emContr, fbContr, prContr);
-        copy.makeFullBackUp();
+//        BackUp backUp = new BackUp(clContr, emContr, fbContr, prContr);
+//        backUp.makeFullBackUp();
     }
 
     public static void createEntitiesDB(ClienteJpaController clContr, EmpresaJpaController emContr, FabricanteJpaController fbContr, ProductoJpaController prContr) {
