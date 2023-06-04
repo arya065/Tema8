@@ -141,6 +141,12 @@ public class DeleteFrame extends javax.swing.JFrame {
 
     //get info
     public int getText() {
-        return Integer.parseInt(jTextField1.getText());
+        int volver = 0;
+        try {
+            volver = Integer.parseInt(jTextField1.getText());
+        } catch (NumberFormatException e) {
+            System.out.println("Number Forman Exeption");
+        }
+        return volver;
     }
 }

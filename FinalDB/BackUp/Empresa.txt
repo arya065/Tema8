@@ -1,6 +1,0 @@
-idEmpresa=1, nombre=empresa1, idProducto=1, ID de clientes connectados: 1, 1
-idEmpresa=2, nombre=empresa2, idProducto=2, ID de clientes connectados: 2, 2
-idEmpresa=3, nombre=empresa3, idProducto=3, ID de clientes connectados: 3, 3
-idEmpresa=4, nombre=empresa1
-idEmpresa=5, nombre=empresa2
-idEmpresa=6, nombre=empresa3

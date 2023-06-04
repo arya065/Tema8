@@ -6,11 +6,9 @@ package com.mycompany.finaldb;
 
 import entities.*;
 import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
 import jpaControllers.*;
 import java.util.*;
-import javax.swing.JFrame;
-import jpaControllers.exceptions.IllegalOrphanException;
+
 import jpaControllers.exceptions.NonexistentEntityException;
 
 /**
@@ -316,11 +314,16 @@ public class MainFraime extends javax.swing.JFrame {
             @Override
             public void windowClosed(WindowEvent e) {
                 String[] fields = createFrame.getText();
-                Cliente cliente = new Cliente(1, fields[1], fields[2]);
-                clContr.create(cliente);
-                jTextArea1.setText("ID de Cliente: " + clContr.getLastCliente().getIdCliente());
+                try {
+                    Cliente cliente = new Cliente(1, fields[1], fields[2]);
+                    clContr.create(cliente);
+                    jTextArea1.setText("ID de Cliente: " + clContr.getLastCliente().getIdCliente());
+                } catch (Exception ex) {
+                    jTextArea1.setText("Creacion fallada");
+                }
             }
-        });
+        }
+        );
     }//GEN-LAST:event_Button2ClienteMouseReleased
 
     private void Button2EmpresaMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Button2EmpresaMouseReleased
@@ -336,10 +339,13 @@ public class MainFraime extends javax.swing.JFrame {
             @Override
             public void windowClosed(WindowEvent e) {
                 String[] fields = createFrame.getText();
-                Empresa empresa = new Empresa(1, fields[1]);
-                emContr.create(empresa);
-                jTextArea1.setText("ID de empresa: " + emContr.getLastEmpresa().getIdEmpresa());
-
+                try {
+                    Empresa empresa = new Empresa(1, fields[1]);
+                    emContr.create(empresa);
+                    jTextArea1.setText("ID de empresa: " + emContr.getLastEmpresa().getIdEmpresa());
+                } catch (Exception ex) {
+                    jTextArea1.setText("Creacion fallada");
+                }
             }
         });
     }//GEN-LAST:event_Button2EmpresaMouseReleased
@@ -357,9 +363,13 @@ public class MainFraime extends javax.swing.JFrame {
             @Override
             public void windowClosed(WindowEvent e) {
                 String[] fields = createFrame.getText();
-                Producto producto = new Producto(1, Double.parseDouble(fields[1]), fields[2]);
-                prContr.create(producto);
-                jTextArea1.setText("ID de Producto: " + prContr.getLastProducto().getIdProducto());
+                try {
+                    Producto producto = new Producto(1, Double.parseDouble(fields[1]), fields[2]);
+                    prContr.create(producto);
+                    jTextArea1.setText("ID de Producto: " + prContr.getLastProducto().getIdProducto());
+                } catch (Exception ex) {
+                    jTextArea1.setText("Creacion fallada");
+                }
             }
         });
     }//GEN-LAST:event_Button2ProductoMouseReleased
@@ -377,9 +387,13 @@ public class MainFraime extends javax.swing.JFrame {
             @Override
             public void windowClosed(WindowEvent e) {
                 String[] fields = createFrame.getText();
-                Fabricante fabricante = new Fabricante(1, fields[1]);
-                fbContr.create(fabricante);
-                jTextArea1.setText("ID de Fabricante: " + fbContr.getLastFabricante().getIdFabricante());
+                try {
+                    Fabricante fabricante = new Fabricante(1, fields[1]);
+                    fbContr.create(fabricante);
+                    jTextArea1.setText("ID de Fabricante: " + fbContr.getLastFabricante().getIdFabricante());
+                } catch (Exception ex) {
+                    jTextArea1.setText("Creacion fallada");
+                }
             }
         });
     }//GEN-LAST:event_Button2FabricanteMouseReleased
@@ -398,8 +412,12 @@ public class MainFraime extends javax.swing.JFrame {
             @Override
             public void windowClosed(WindowEvent e) {
                 Integer[] fields = addFrame.getText();
-                cr.addClienteEmpresa(clContr.findCliente(fields[0]), emContr.findEmpresa(fields[1]));
-                jTextArea1.setText("Connecion creada");
+                try {
+                    cr.addClienteEmpresa(clContr.findCliente(fields[0]), emContr.findEmpresa(fields[1]));
+                    jTextArea1.setText("Connecion creada");
+                } catch (Exception ex) {
+                    jTextArea1.setText("Connecion fallada");
+                }
             }
         });
     }//GEN-LAST:event_Button3ClienteMouseReleased
@@ -418,14 +436,20 @@ public class MainFraime extends javax.swing.JFrame {
             @Override
             public void windowClosed(WindowEvent e) {
                 Integer[] fields = addFrame.getText();
-                cr.addClienteEmpresa(clContr.findCliente(fields[0]), emContr.findEmpresa(fields[1]));
-                jTextArea1.setText("Connecion creada");
+                try {
+                    cr.addClienteEmpresa(clContr.findCliente(fields[0]), emContr.findEmpresa(fields[1]));
+                    jTextArea1.setText("Connecion creada");
+
+                } catch (Exception ex) {
+                    jTextArea1.setText("Connecion fallada");
+                }
             }
-        });
+        }
+        );
     }//GEN-LAST:event_Button3EmpresaMouseReleased
 
     private void Button3ProductoMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Button3ProductoMouseReleased
-        // start add frame Prodcuto
+        // start add frame Producto
         CreatingEntities cr = new CreatingEntities();
         AddFrame addFrame = new AddFrame();
         addFrame.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
@@ -438,10 +462,15 @@ public class MainFraime extends javax.swing.JFrame {
             @Override
             public void windowClosed(WindowEvent e) {
                 Integer[] fields = addFrame.getText();
-                cr.addEmpresaProducto(emContr.findEmpresa(fields[1]), prContr.findProducto(fields[0]));
-                jTextArea1.setText("Connecion creada");
+                try {
+                    cr.addEmpresaProducto(emContr.findEmpresa(fields[1]), prContr.findProducto(fields[0]));
+                    jTextArea1.setText("Connecion creada");
+                } catch (Exception ex) {
+                    jTextArea1.setText("Connecion fallada");
+                }
             }
-        });
+        }
+        );
     }//GEN-LAST:event_Button3ProductoMouseReleased
 
     private void Button3FabricanteMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Button3FabricanteMouseReleased
@@ -458,8 +487,12 @@ public class MainFraime extends javax.swing.JFrame {
             @Override
             public void windowClosed(WindowEvent e) {
                 Integer[] fields = addFrame.getText();
-                cr.addProductoFabricante(fbContr.findFabricante(fields[0]), prContr.findProducto(fields[1]));
-                jTextArea1.setText("Connecion creada");
+                try {
+                    cr.addProductoFabricante(fbContr.findFabricante(fields[0]), prContr.findProducto(fields[1]));
+                    jTextArea1.setText("Connecion creada");
+                } catch (Exception ex) {
+                    jTextArea1.setText("Connecion fallada");
+                }
             }
         });
     }//GEN-LAST:event_Button3FabricanteMouseReleased
@@ -481,7 +514,7 @@ public class MainFraime extends javax.swing.JFrame {
                     clContr.destroy(id);
                     jTextArea1.setText("Objeto eliminado");
                 } catch (NonexistentEntityException ex) {
-                    jTextArea1.setText(ex.toString());
+                    jTextArea1.setText("Objeto no eliminado, id no exists");
                 }
             }
         });
@@ -504,7 +537,7 @@ public class MainFraime extends javax.swing.JFrame {
                     emContr.destroy(id);
                     jTextArea1.setText("Objeto eliminado");
                 } catch (NonexistentEntityException ex) {
-                    jTextArea1.setText(ex.toString());
+                    jTextArea1.setText("Objeto no eliminado, id no exists");
                 }
             }
         });
@@ -527,7 +560,7 @@ public class MainFraime extends javax.swing.JFrame {
                     prContr.destroy(id);
                     jTextArea1.setText("Objeto eliminado");
                 } catch (NonexistentEntityException ex) {
-                    jTextArea1.setText(ex.toString());
+                    jTextArea1.setText("Objeto no eliminado, id no exists");
                 }
             }
         });
@@ -550,7 +583,7 @@ public class MainFraime extends javax.swing.JFrame {
                     fbContr.destroy(id);
                     jTextArea1.setText("Objeto eliminado");
                 } catch (NonexistentEntityException ex) {
-                    jTextArea1.setText(ex.toString());
+                    jTextArea1.setText("Objeto no eliminado, id no exists");
                 }
             }
         });
@@ -570,16 +603,24 @@ public class MainFraime extends javax.swing.JFrame {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
+
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(MainFraime.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MainFraime.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(MainFraime.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MainFraime.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(MainFraime.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MainFraime.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(MainFraime.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MainFraime.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>

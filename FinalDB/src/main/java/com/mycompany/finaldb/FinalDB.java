@@ -1,18 +1,19 @@
 package com.mycompany.finaldb;
 
-import backupUtils.*;
-import entities.*;
+import backupUtils.BackUp;
+import java.awt.event.WindowEvent;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.swing.*;
+import static javax.swing.WindowConstants.*;
 import jpaControllers.*;
-import javax.swing.*;
 
 public class FinalDB {
 
     public static void main(String[] args) throws IOException {
-
         initComponents();
     }
 
@@ -26,25 +27,18 @@ public class FinalDB {
 
         int confirm = askBackUp();
 
-        //использовать backup
-        if (confirm == 0) {
+        if (confirm == 0) {//use backup
             BackUp backup = new BackUp(clContr, emContr, fbContr, prContr);
+            backup.readBackUp();
 
-            // не использовать и создать дефолтную БД
-        } else if (confirm == 1) {
-            //options of frame
-            MainFraime frame = new MainFraime(clContr, emContr, fbContr, prContr);
-            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            frame.setSize(830, 540);
-            frame.setVisible(true);
-            frame.setResizable(false);
+            MainFraime frame = startFrame(clContr, emContr, fbContr, prContr);
+        } else if (confirm == 1) {//dont use backup
+            MainFraime frame = startFrame(clContr, emContr, fbContr, prContr);
 
-            //creating first entities
+            //creating default entities
             createEntitiesDB(clContr, emContr, fbContr, prContr);
         }
 
-//        BackUp backUp = new BackUp(clContr, emContr, fbContr, prContr);
-//        backUp.makeFullBackUp();
     }
 
     public static void createEntitiesDB(ClienteJpaController clContr, EmpresaJpaController emContr, FabricanteJpaController fbContr, ProductoJpaController prContr) {
@@ -87,5 +81,31 @@ public class FinalDB {
 
     public static int askBackUp() {
         return JOptionPane.showConfirmDialog(null, "Utilizar ultimo backup?");
+    }
+
+    public static MainFraime startFrame(ClienteJpaController clContr, EmpresaJpaController emContr, FabricanteJpaController fbContr, ProductoJpaController prContr) {
+        //options of frame
+        MainFraime frame = new MainFraime(clContr, emContr, fbContr, prContr);
+        frame.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        frame.setSize(830, 540);
+        frame.setVisible(true);
+        frame.setResizable(false);
+
+        //listener to ask to make backup
+        frame.addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosed(WindowEvent e) {
+                int ask = JOptionPane.showConfirmDialog(null, "Hacer backup?");
+                if (ask == 0) {
+                    BackUp backUp = new BackUp(clContr, emContr, fbContr, prContr);
+                    try {
+                        backUp.makeFullBackUp();
+                    } catch (IOException ex) {
+                        Logger.getLogger(FinalDB.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+            }
+        });
+        return frame;
     }
 }

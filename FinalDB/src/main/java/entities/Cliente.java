@@ -121,7 +121,7 @@ public class Cliente implements Serializable {
     @Override
     public String toString() {
         //login to print correctly
-        if (empresaCollection == null) {
+        if (empresaCollection == null || empresaCollection.size() == 0) {
             return "idCliente=" + idCliente + ", nombre=" + nombre + ", tel=" + tel;
         }
         return "idCliente=" + idCliente + ", nombre=" + nombre + ", tel=" + tel + ", ID de empresas conectadas: " + printCollection();
@@ -130,11 +130,12 @@ public class Cliente implements Serializable {
     public String printCollection() {
         String print = "";
         for (Empresa em : empresaCollection) {
-            print += em.getIdEmpresa() + ", ";
+            print += em.getIdEmpresa() + "; ";
         }
         try {
             print = print.substring(0, print.length() - 2);
-        } catch (IndexOutOfBoundsException e){}
+        } catch (IndexOutOfBoundsException e) {
+        }
         return print;
     }
 }

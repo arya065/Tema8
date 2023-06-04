@@ -1,6 +1,3 @@
 idProducto=1, precio=1.0, nombre=producto1, idFabricante=1
 idProducto=2, precio=2.0, nombre=producto2, idFabricante=2
 idProducto=3, precio=3.0, nombre=producto3, idFabricante=3
-idProducto=4, precio=1.0, nombre=producto1
-idProducto=5, precio=2.0, nombre=producto2
-idProducto=6, precio=3.0, nombre=producto3

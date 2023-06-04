@@ -132,7 +132,7 @@ public class Empresa implements Serializable {
     public String printCollection() {
         String print = "";
         for (Cliente cl : clienteCollection) {
-            print += cl.getIdCliente() + ", ";
+            print += cl.getIdCliente() + "; ";
         }
         try {
             print = print.substring(0, print.length() - 2);

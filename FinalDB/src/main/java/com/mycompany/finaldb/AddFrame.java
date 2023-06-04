@@ -108,9 +108,12 @@ public class AddFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
-        info[0] = Integer.parseInt(jTextField1.getText());
-        info[1] = Integer.parseInt(jTextField2.getText());
-
+        try {
+            info[0] = Integer.parseInt(jTextField1.getText());
+            info[1] = Integer.parseInt(jTextField2.getText());
+        } catch (NumberFormatException e) {
+            System.out.println("Number format exeption");
+        }
         this.dispose();
     }//GEN-LAST:event_jButton1MouseClicked
 
@@ -165,19 +168,18 @@ public class AddFrame extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     // End of variables declaration//GEN-END:variables
-    
-    
+
     //get info
     public Integer[] getText() {
         return info;
     }
-    
+
     //method to make normal size of text fields
     public void clearAllTextFields() {
         jTextField1.setText("           ");
         jTextField2.setText("           ");
     }
-    
+
     //set labels for cliente
     public void addCliente() {
         jLabel1.setText("ID Cliente:");
@@ -189,13 +191,13 @@ public class AddFrame extends javax.swing.JFrame {
         jLabel1.setText("ID Cliente:");
         jLabel2.setText("ID Empresa:");
     }
-    
+
     //set labels for producto
     public void addProducto() {
         jLabel1.setText("ID Producto:");
         jLabel2.setText("ID Empresa:");
     }
-    
+
     //set labels for fabricante
     public void addFabricante() {
         jLabel1.setText("ID Fabricante:");

@@ -130,11 +130,28 @@ public class Producto implements Serializable {
     @Override
     public String toString() {
         //logic to print correctly
-        if (idFabricante == null) {
+        if (idFabricante == null && empresaCollection.size() != 0) {
+            return "idProducto=" + idProducto + ", precio=" + precio + ", nombre=" + nombre + ", Id de empresas connectadas=" + printCollection();
+        }
+        if (empresaCollection.size() == 0 && idFabricante != null) {
+            return "idProducto=" + idProducto + ", precio=" + precio + ", nombre=" + nombre + ", idFabricante=" + idFabricante.getIdFabricante();
+        }
+        if (empresaCollection.size() == 0 && idFabricante == null) {
             return "idProducto=" + idProducto + ", precio=" + precio + ", nombre=" + nombre;
         }
+        return "idProducto=" + idProducto + ", precio=" + precio + ", nombre=" + nombre + ", idFabricante=" + idFabricante.getIdFabricante() + ", Id de empresas connectadas=" + printCollection();
+    }
 
-        return "idProducto=" + idProducto + ", precio=" + precio + ", nombre=" + nombre + ", idFabricante=" + idFabricante.getIdFabricante();
+    public String printCollection() {
+        String print = "";
+        for (Empresa em : empresaCollection) {
+            print += em.getIdEmpresa() + "; ";
+        }
+        try {
+            print = print.substring(0, print.length() - 2);
+        } catch (IndexOutOfBoundsException e) {
+        }
+        return print;
     }
 
 }
