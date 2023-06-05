@@ -1,0 +1,10 @@
+null2 - marca=3:volumen=3:nombreProductor=3:velocidadMaxima=3:tipo=Furgoneta
+2 - marca=3:volumen=3:nombreProductor=3:velocidadMaxima=3:tipo=Furgoneta
+2 - marca=3:volumen=3:nombreProductor=3:velocidadMaxima=3:tipo=Furgoneta
+2 - marca=3:volumen=3:nombreProductor=3:velocidadMaxima=3:tipo=Furgoneta
+2 - marca=3:volumen=3:nombreProductor=3:velocidadMaxima=3:tipo=Furgoneta
+2 - marca=3:volumen=3:nombreProductor=3:velocidadMaxima=3:tipo=Furgoneta
+2 - marca=3:volumen=3:nombreProductor=3:velocidadMaxima=3:tipo=Furgoneta
+2 - marca=3:volumen=3:nombreProductor=3:velocidadMaxima=3:tipo=Furgoneta
+2 - marca=3:volumen=3:nombreProductor=3:velocidadMaxima=3:tipo=Furgoneta
+2 - marca=3:volumen=3:nombreProductor=3:velocidadMaxima=3:tipo=Furgoneta

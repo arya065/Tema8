@@ -1,0 +1,10 @@
+null1 - marca=2:volumen=2:nombreProductor=2:velocidadMaxima=2:tipo=Deportivo
+1 - marca=2:volumen=2:nombreProductor=2:velocidadMaxima=2:tipo=Deportivo
+1 - marca=2:volumen=2:nombreProductor=2:velocidadMaxima=2:tipo=Deportivo
+1 - marca=2:volumen=2:nombreProductor=2:velocidadMaxima=2:tipo=Deportivo
+1 - marca=2:volumen=2:nombreProductor=2:velocidadMaxima=2:tipo=Deportivo
+1 - marca=2:volumen=2:nombreProductor=2:velocidadMaxima=2:tipo=Deportivo
+1 - marca=2:volumen=2:nombreProductor=2:velocidadMaxima=2:tipo=Deportivo
+1 - marca=2:volumen=2:nombreProductor=2:velocidadMaxima=2:tipo=Deportivo
+1 - marca=2:volumen=2:nombreProductor=2:velocidadMaxima=2:tipo=Deportivo
+1 - marca=2:volumen=2:nombreProductor=2:velocidadMaxima=2:tipo=Deportivo

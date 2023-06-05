@@ -1,0 +1,10 @@
+null0 - marca=1:volumen=1:nombreProductor=1:velocidadMaxima=1:tipo=Turismo
+0 - marca=1:volumen=1:nombreProductor=1:velocidadMaxima=1:tipo=Turismo
+0 - marca=1:volumen=1:nombreProductor=1:velocidadMaxima=1:tipo=Turismo
+0 - marca=1:volumen=1:nombreProductor=1:velocidadMaxima=1:tipo=Turismo
+0 - marca=1:volumen=1:nombreProductor=1:velocidadMaxima=1:tipo=Turismo
+0 - marca=1:volumen=1:nombreProductor=1:velocidadMaxima=1:tipo=Turismo
+0 - marca=1:volumen=1:nombreProductor=1:velocidadMaxima=1:tipo=Turismo
+0 - marca=1:volumen=1:nombreProductor=1:velocidadMaxima=1:tipo=Turismo
+0 - marca=1:volumen=1:nombreProductor=1:velocidadMaxima=1:tipo=Turismo
+0 - marca=1:volumen=1:nombreProductor=1:velocidadMaxima=1:tipo=Turismo
