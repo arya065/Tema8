@@ -40,9 +40,11 @@ public class Empresa implements Serializable {
     @Basic(optional = false)
     @Column(name = "nombre")
     private String nombre;
+    //relation many to many with table Cliente
     @ManyToMany(mappedBy = "empresaCollection")
     private Collection<Cliente> clienteCollection;
     @JoinColumn(name = "id_producto", referencedColumnName = "id_producto")
+    //relation one to many with Producto, Empresa can use many Products
     @ManyToOne
     private Producto idProducto;
 
@@ -136,7 +138,9 @@ public class Empresa implements Serializable {
         }
         try {
             print = print.substring(0, print.length() - 2);
-        } catch (IndexOutOfBoundsException e) {}
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("Index out of bounds");
+        }
         return print;
     }
 

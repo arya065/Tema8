@@ -43,6 +43,7 @@ public class Cliente implements Serializable {
     private String nombre;
     @Column(name = "tel")
     private String tel;
+    //relation many to many between Cliente and Empresa, using new table, named cliente_empresa, which has 2 fk (idcliente, idempresa)
     @JoinTable(name = "cliente_empresa", joinColumns = {
         @JoinColumn(name = "id_cliente", referencedColumnName = "id_cliente")}, inverseJoinColumns = {
         @JoinColumn(name = "id_empresa", referencedColumnName = "id_empresa")})
@@ -135,6 +136,7 @@ public class Cliente implements Serializable {
         try {
             print = print.substring(0, print.length() - 2);
         } catch (IndexOutOfBoundsException e) {
+            System.out.println("Index out of bounds");
         }
         return print;
     }

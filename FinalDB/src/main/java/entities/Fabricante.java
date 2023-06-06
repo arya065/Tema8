@@ -37,6 +37,8 @@ public class Fabricante implements Serializable {
     @Basic(optional = false)
     @Column(name = "nombre")
     private String nombre;
+    
+    //relation one to one to table named Producto
     @OneToOne(mappedBy = "idFabricante")
     private Producto producto;
 
